@@ -3,13 +3,16 @@
   color: "#00369f"
 
 "PRCH":
-  url: https://bmcpregnancychildbirth.biomedcentral.com/
+  url: https://bmcpregnancychildbirth.biomedcentral.com
 
 "FPUBH":
   url: https://www.frontiersin.org/journals/public-health
 
 "Zenodo":
-  url: https://zenodo.org/
+  url: https://zenodo.org
 
 "JARG":
   url: https://www.springer.com/journal/10815
+
+"RS":
+  url: https://www.researchsquare.com

@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: AI Engineer
+subtitle: MSc student in DSAI @ UdS
 
 profile:
   align: right

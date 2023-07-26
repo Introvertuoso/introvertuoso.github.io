@@ -1,9 +1,8 @@
 ---
 layout: page
-title: 
-description: Swiss & Mushroom
+title: Swiss & Mushroom
+description: 
 img: assets/img/swiss_n_mushroom.jpg
 importance: 1
 category: Food
 ---
-Nothing to add.

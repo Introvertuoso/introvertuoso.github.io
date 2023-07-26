@@ -5,7 +5,7 @@ permalink: /recreation/
 description: 
 nav: true
 nav_order: 3
-display_categories: [food,]
+display_categories: [Food,]
 horizontal: false
 ---
 

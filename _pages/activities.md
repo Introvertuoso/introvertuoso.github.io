@@ -1,11 +1,11 @@
 ---
 layout: page
-title: Recreation
-permalink: /recreation/
+title: Activities
+permalink: /activities/
 description: 
 nav: true
-nav_order: 4
-display_categories: [Food, Murals, Calligraphy, Photography, Digital Art]
+nav_order: 3
+display_categories: [Invited Talks, Journal Reviewing]
 horizontal: false
 ---
 

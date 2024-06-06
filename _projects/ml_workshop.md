@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Machine Learning Workshop
+title: Machine learning workshop
 description: 
 img: assets/img/ml_workshop.jpg
 importance: 1

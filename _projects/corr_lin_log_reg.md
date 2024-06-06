@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Correlation, Linear and Logistic Regression
+title: Correlation, linear and logistic regression
 description: 
 img: assets/img/corr_lin_log_reg.jpg
 importance: 1

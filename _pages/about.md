@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: MSc in <a href='https://saarland-informatics-campus.de/en/studium-studies/data-science-and-artificial-intelligence-master/'>DSAI</a> @ <a href='https://www.uni-saarland.de/en/home.html'>UdS</a> | Research assistant @ <a href='https://cispa.de'>CISPA</a> | Software dev. @ <a href='https://www.intex.de/'>INTEX</a>
+subtitle: MSc in <a href='https://saarland-informatics-campus.de/en/studium-studies/data-science-and-artificial-intelligence-master/'>DSAI</a> @ <a href='https://www.uni-saarland.de/en/home.html'>UdS</a> | Research Assistant @ <a href='https://cispa.de'>CISPA</a> | Software Dev. @ <a href='https://www.intex.de/'>INTEX</a>
 
 profile:
   align: right

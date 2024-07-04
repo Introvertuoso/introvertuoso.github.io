@@ -2,7 +2,7 @@
 layout: page
 title: Philly Cheesesteak
 description: Coming soon...
-img: 
+img:
 importance: 1
 redirect: /recreation/
 category: Food

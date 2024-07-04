@@ -2,7 +2,7 @@
 layout: page
 title: Recreation
 permalink: /recreation/
-description: 
+description:
 nav: true
 nav_order: 4
 display_categories: [Food, Calligraphy, Photography, Digital Art]

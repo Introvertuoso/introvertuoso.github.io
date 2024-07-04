@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Sinda
-description: 
+description:
 img: assets/img/sinda.jpg
 importance: 1
 redirect: /recreation/

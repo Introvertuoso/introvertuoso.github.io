@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Duha
-description: 
+description:
 img: assets/img/duha.jpg
 importance: 1
 redirect: /recreation/

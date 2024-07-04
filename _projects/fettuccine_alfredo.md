@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Fettuccine Alfredo
-description: 
+description:
 img: assets/img/fettuccine_alfredo.JPG
 importance: 1
 redirect: /recreation/

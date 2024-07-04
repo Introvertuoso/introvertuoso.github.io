@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Eureka
-description: 
+description:
 img: assets/img/eureka.jpg
 importance: 1
 redirect: /recreation/

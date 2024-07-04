@@ -1,7 +1,7 @@
 ---
 layout: page
 title: BMC Pregnancy and Childbirth
-description: 
+description:
 img: assets/img/bmc_logo.png
 importance: 2
 redirect: https://bmcpregnancychildbirth.biomedcentral.com/

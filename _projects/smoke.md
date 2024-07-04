@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Smoke
-description: 
+description:
 img: assets/img/smoke.jpg
 importance: 1
 redirect: /recreation/

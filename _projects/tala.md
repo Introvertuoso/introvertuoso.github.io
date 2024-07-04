@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Tala
-description: 
+description:
 img: assets/img/tala.jpg
 importance: 1
 redirect: /recreation/

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Leen
-description: 
+description:
 img: assets/img/leen.jpg
 importance: 1
 redirect: /recreation/

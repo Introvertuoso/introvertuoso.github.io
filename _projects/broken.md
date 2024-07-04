@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Broken
-description: 
+description:
 img: assets/img/broken.jpg
 importance: 1
 redirect: /recreation/

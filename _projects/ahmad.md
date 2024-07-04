@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Ahmad
-description: 
+description:
 img: assets/img/ahmad.jpg
 importance: 1
 redirect: /recreation/

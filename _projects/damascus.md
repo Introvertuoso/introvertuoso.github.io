@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Damascus
-description: 
+description:
 img: assets/img/damascus.jpg
 importance: 1
 redirect: /recreation/

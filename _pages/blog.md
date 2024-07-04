@@ -1,8 +1,8 @@
----
+<!-- ---
 layout: default
-permalink: /blog/
+permalink: 
 title: blog
-nav: true
+nav: truefalse
 nav_order: 1
 pagination:
   enabled: true
@@ -193,4 +193,4 @@ pagination:
 {% include pagination.liquid %}
 {% endif %}
 
-</div>
+</div> -->

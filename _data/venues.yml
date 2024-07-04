@@ -1,9 +1,17 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
-  color: "#00369f"
+"PRCH":
+  url: https://bmcpregnancychildbirth.biomedcentral.com
 
-"PhysRev":
-  url: https://journals.aps.org/
+"FPUBH":
+  url: https://www.frontiersin.org/journals/public-health
 
-"Vision":
-  color: "#009f36"
+"Zenodo":
+  url: https://zenodo.org
+
+"JARG":
+  url: https://www.springer.com/journal/10815
+
+"RS":
+  url: https://www.researchsquare.com
+
+"MP":
+  url: https://pubs.acs.org/journal/mpohbp

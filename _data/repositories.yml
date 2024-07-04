@@ -1,14 +1,9 @@
 github_users:
-  - torvalds
-  - alshedivat
-
-repo_description_lines_max: 2
+  - introvertuoso
 
 github_repos:
-  - alshedivat/al-folio
-  - jekyll/jekyll
-  - twbs/bootstrap
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - mathjax/MathJax
-  - jpswalsh/academicons
+  - introvertuoso/HLCV23
+  - introvertuoso/BrainTargeting
+  - Thunfischpirat/SpokenDigits 
+  - introvertuoso/ISEA
+  - introvertuoso/TwitterSentimentPrediction

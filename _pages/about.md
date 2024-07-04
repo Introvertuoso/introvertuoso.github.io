@@ -1,25 +1,23 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: MSc in <a href='https://saarland-informatics-campus.de/en/studium-studies/data-science-and-artificial-intelligence-master/'>DSAI</a> @ <a href='https://www.uni-saarland.de/en/home.html'>UdS</a> | Research Assistant @ <a href='https://cispa.de'>CISPA</a> | Software Dev. @ <a href='https://www.intex.de/'>INTEX</a>
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p style="text-align: center">Saarbrücken, Germany</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I'm pursuing a Master's of Science in <a href='https://saarland-informatics-campus.de/en/studium-studies/data-science-and-artificial-intelligence-master/'>Data Science and Artificial Intelligence</a> at <a href='https://www.uni-saarland.de/en/home.html'>Saarland University</a>. My research interests lie mainly in using statistics, machine learning, and data science to answer questions in the biomedical fields. I'm currently working with the <a href='https://eda.rg.cispa.io'>Exploratory Data Analysis</a> group at the <a href='https://cispa.de'>CISPA Helmholtz Center for Information Security</a> on the topic of discovering subgroups with exceptional survival characteristics.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+I received my bachelor's degree in Information Technology Engineering in 2021 from <a href='https://www.damascusuniversity.edu.sy/index.php?lang=2'>Damascus University</a>, specializing in artificial intelligence. For my graduation project, I built a surveillance system that uses computer vision and deep learning to detect multiple security-related events from CCTV cameras.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+Dilettante. Gastronome.

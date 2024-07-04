@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Computer science meets pharmaceutical and biomedical sciences 
+title: Computer science meets pharmaceutical and biomedical sciences
 description:
 img: assets/img/cs_meets_pharm.jpg
 importance: 1

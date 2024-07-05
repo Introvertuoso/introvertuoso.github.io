@@ -22,4 +22,5 @@ I'm pursuing a Master's of Science in <a href='https://saarland-informatics-camp
 I received my bachelor's degree in Information Technology Engineering in 2021 from <a href='https://www.damascusuniversity.edu.sy/index.php?lang=2'>Damascus University</a>, specializing in artificial intelligence. For my graduation project, I built a surveillance system that uses computer vision and deep learning to detect multiple security-related events from CCTV cameras.
 
 Dilettante. Gastronome.
+
 <p>

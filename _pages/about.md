@@ -19,7 +19,7 @@ social: true # includes social icons at the bottom of the page
 <p style="text-align: justify;">
 I'm pursuing a Master's of Science in <a href='https://saarland-informatics-campus.de/en/studium-studies/data-science-and-artificial-intelligence-master/'>Data Science and Artificial Intelligence</a> at <a href='https://www.uni-saarland.de/en/home.html'>Saarland University</a>. My research interests lie mainly in using statistics, machine learning, and data science to answer questions in the biomedical fields. I'm currently working with the <a href='https://eda.rg.cispa.io'>Exploratory Data Analysis</a> group at the <a href='https://cispa.de'>CISPA Helmholtz Center for Information Security</a> on the topic of discovering subgroups with exceptional survival characteristics.
 <br><br>
-I received my bachelor's degree in Information Technology Engineering in 2021 from <a href='https://www.damascusuniversity.edu.sy/index.php?lang=2'>Damascus University</a>, specializing in artificial intelligence. For my graduation project, I built a surveillance system that uses computer vision and deep learning to detect multiple security-related events from CCTV cameras.
+I received my bachelor's degree in Information Technology Engineering in 2021 from <a href='https://www.damascusuniversity.edu.sy/index.php?lang=2'>Damascus University</a>, specializing in artificial intelligence. For my graduation project, I worked on a computer vision-powered system that detects security- and safety-related events.
 <br><br>
 Dilettante. Gastronome.
 

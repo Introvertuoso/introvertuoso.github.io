@@ -309,12 +309,6 @@
               aria-label="Google Scholar link"
               role="button"
             >
-              {% comment %}
-              <img
-              src="https://img.shields.io/badge/scholar-{% google_scholar_citations site.scholar_userid entry.google_scholar_id %}-4285F4?logo=googlescholar&labelColor=beige"
-              alt="{% google_scholar_citations site.scholar_userid entry.google_scholar_id %} Google Scholar citations"
-              > 
-              {% endcomment %}
               <img
               src="https://img.shields.io/badge/scholar-{{ entry.scholar_citation_count }}-4285F4?logo=googlescholar&labelColor=beige"
               alt="{{ entry.scholar_citation_count }} Google Scholar citations"

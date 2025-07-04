@@ -5,5 +5,5 @@ description:
 img: assets/img/egg_fried_rice.jpg
 importance: 1
 redirect: /recreation/
-category: Food
+category: Cooking
 ---

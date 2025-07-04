@@ -5,5 +5,5 @@ description: Improvised.
 img: assets/img/shish_berak.jpeg
 importance: 1
 redirect: /recreation/
-category: Food
+category: Cooking
 ---

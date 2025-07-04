@@ -5,7 +5,7 @@ permalink: /activities/
 description:
 nav: true
 nav_order: 3
-display_categories: [Tutoring, Invited Talks, Journal Reviewing]
+display_categories: [Teaching, Invited Talks, Journal Reviewing]
 horizontal: false
 ---
 

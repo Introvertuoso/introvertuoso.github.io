@@ -5,5 +5,5 @@ description: Coming soon...
 img:
 importance: 1
 redirect: /recreation/
-category: Food
+category: Cooking
 ---

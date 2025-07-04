@@ -5,7 +5,7 @@ permalink: /recreation/
 description:
 nav: true
 nav_order: 4
-display_categories: [Food, Calligraphy, Photography, Digital Art]
+display_categories: [Cooking, Calligraphy, Photography, Digital Art]
 horizontal: false
 ---
 

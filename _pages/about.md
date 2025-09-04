@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: MSc in <a href='https://saarland-informatics-campus.de/en/studium-studies/data-science-and-artificial-intelligence-master/'>DSAI</a> @ <a href='https://www.uni-saarland.de/en/home.html'>UdS</a> | Research Assistant @ <a href='https://cispa.de'>CISPA</a> | Software Dev. @ <a href='https://www.intex.de/'>INTEX</a>
+subtitle: PhD student @ <a href='https://cispa.de'>CISPA</a> | Member of the <a href='https://www.neuroexplicit.org'>Research Training Group on Neuroexplicit Models</a>
 
 profile:
   align: right
@@ -17,9 +17,11 @@ social: true # includes social icons at the bottom of the page
 ---
 
 <p style="text-align: justify;">
-I'm pursuing a Master's of Science in <a href='https://saarland-informatics-campus.de/en/studium-studies/data-science-and-artificial-intelligence-master/'>Data Science and Artificial Intelligence</a> at <a href='https://www.uni-saarland.de/en/home.html'>Saarland University</a>. My research interests lie mainly in using statistics, machine learning, and data science to answer questions in the biomedical fields. I'm currently working with the <a href='https://eda.rg.cispa.io'>Exploratory Data Analysis</a> group at the <a href='https://cispa.de'>CISPA Helmholtz Center for Information Security</a> on the topic of discovering subgroups with exceptional survival characteristics.
+I'm a first-year PhD student at the <a href='https://cispa.de'>Helmholtz Center CISPA</a>, supervised by <a href='https://vreeken.eu'>Jilles Vreeken</a>, while being affiliated with the <a href='https://www.neuroexplicit.org'>Research Training Group on Neuroexplicit Models</a>. I am interested in working on explainable neurosymbolic methods, particularly, for the biomedical domain.
 <br><br>
-I received my bachelor's degree in Information Technology Engineering in 2021 from <a href='https://www.damascusuniversity.edu.sy/index.php?lang=2'>Damascus University</a>, specializing in artificial intelligence. For my graduation project, I worked on a computer vision-powered system that detects security- and safety-related events.
+Before joining the <a href='https://eda.rg.cispa.io'>Exploratory Data Analysis</a> group, I obtained my Master's of Science in <a href='https://saarland-informatics-campus.de/en/studium-studies/data-science-and-artificial-intelligence-master/'>Data Science and Artificial Intelligence</a> at <a href='https://www.uni-saarland.de/en/home.html'>Saarland University</a>. I wrote my Master's thesis on differentiable subgroup discovery in time-to-event (survival) data.
+<br><br>
+Previously, I obtained my Bachelor of Engineering in Information Technology Engineering from <a href='https://www.damascusuniversity.edu.sy/index.php?lang=2'>Damascus University</a>, specializing in artificial intelligence. For my graduation project, I worked on a computer vision-powered system that detects security- and safety-related events.
 <br><br>
 Dilettante. Gastronome.
 

@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Philly Cheesesteak
-description: Coming soon...
-img:
+description: 
+img: assets/img/philly_cheesesteak.jpeg
 importance: 1
 redirect: /recreation/
 category: Cooking

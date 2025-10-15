@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: PhD student @ <a href='https://cispa.de'>CISPA</a> | Member of <a href='https://www.neuroexplicit.org'>RTG NX</a>
+subtitle: PhD student @ <a href='https://cispa.de'>CISPA</a> | Member of <a href='https://www.neuroexplicit.org'>RTG NX Models</a>
 
 profile:
   align: right

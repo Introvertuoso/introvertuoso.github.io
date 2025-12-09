@@ -1,11 +1,11 @@
----
+<!-- ---
 layout: page
 permalink: /repositories/
 title: Repositories
 description:
 nav: true
 nav_order: 2
----
+--- -->
 
 <!-- ## GitHub users -->
 <!--
@@ -35,7 +35,7 @@ nav_order: 2
 {% endif %}
 {% endif %} -->
 
-## GitHub Repositories
+<!-- ## GitHub Repositories
 
 {% if site.data.repositories.github_repos %}
 
@@ -44,4 +44,4 @@ nav_order: 2
     {% include repository/repo.liquid repository=repo %}
   {% endfor %}
 </div>
-{% endif %}
+{% endif %} -->

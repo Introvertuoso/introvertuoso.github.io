@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Attending ECML PKDD 2025, in Porto, Portugal.
+Attending <a href='https://ecmlpkdd.org/2025/'>ECML PKDD 2025</a>, in Porto, Portugal.

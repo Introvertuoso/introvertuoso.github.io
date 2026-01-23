@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Was accepted into the RTG on Neuroexplicit Models.
+Was <a href='https://www.neuroexplicit.org/news/2025/07/08/new-phd-students-join-the-rtg/'>accepted</a> into the RTG on Neuroexplicit Models.

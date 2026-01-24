@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Visited our Liberate AI partners at <a href='https://www.dzne.de/'>DZNE</a>.
+Visited our Liberate AI partners at <a href='https://www.dzne.de/'>DZNE</a> in Bonn, Germany.

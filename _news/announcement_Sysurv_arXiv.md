@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Our preprint <a href='https://arxiv.org/abs/2602.22179'>Learning and Naming Subgroups with Exceptional Survival Characteristics</a> is online.
+Our preprint titled <a href='https://arxiv.org/abs/2602.22179'>Discovering Subgroups with Exceptional Survival Characteristics</a> is online.

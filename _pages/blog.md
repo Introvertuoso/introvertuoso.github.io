@@ -54,7 +54,7 @@ pagination:
     <div class="section-title-sm">
       <i class="fa-solid fa-star fa-xs"></i> Featured Articles
     </div>
-    <div class="row row-cols-1 row-cols-md-2 g-3">
+    <div class="row row-cols-1 row-cols-md-2 featured-row">
     {% for post in featured_posts %}
       {% assign post_tags = post.tags | join: ' ' | slugify %}
       {% assign post_cats = post.categories | join: ' ' | slugify %}
@@ -182,14 +182,24 @@ document.addEventListener('DOMContentLoaded', function () {
   function applyFilter(filterVal) {
     filterVal = (filterVal || 'all').toLowerCase().trim();
 
+    let activeBtn = null;
     filterButtons.forEach(function (btn) {
       const btnFilter = btn.getAttribute('data-filter');
       if (btnFilter === filterVal) {
         btn.classList.add('active-chip');
+        activeBtn = btn;
       } else {
         btn.classList.remove('active-chip');
       }
     });
+
+    if (activeBtn && filterBanner) {
+      activeBtn.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
 
     let visibleCount = 0;
 

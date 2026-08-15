@@ -3,8 +3,8 @@
     <div class="card h-100 hoverable">
       <div class="row no-gutters">
         {% if project.img %}
-          <div class="col-md-6">
-            {% include figure.liquid loading="eager" path=project.img sizes="(min-width: 768px) 156px, 50vw" alt="project thumbnail" class="card-img" %}
+          <div class="col-md-6" title="Click to zoom image">
+            {% include figure.liquid loading="eager" path=project.img sizes="(min-width: 768px) 156px, 50vw" alt=project.title class="card-img" zoomable=true %}
           </div>
         {% endif %}
         <div class="{% if project.img %}col-md-6{% else %}col-md-12{% endif %}">

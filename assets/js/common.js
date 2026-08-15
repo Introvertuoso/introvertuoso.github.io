@@ -17,6 +17,46 @@ $(document).ready(function () {
   });
   $("a").removeClass("waves-effect waves-light");
 
+  // Prevent typographic orphans by binding the last two words of titles with a non-breaking space
+  $(".title, .post-title:not(.about-name), .featured-title, .card-title, .post-list li h3 a").each(function () {
+    let $el = $(this);
+    if ($el.children().length === 0) {
+      let text = $el.text().trim();
+      let lastSpace = text.lastIndexOf(" ");
+      if (lastSpace > 0) {
+        $el.html(text.substring(0, lastSpace) + "&nbsp;" + text.substring(lastSpace + 1));
+      }
+    }
+  });
+
+  // Smooth mobile figure magnification handler
+  window.openMobilePreview = function (btn) {
+    const container = btn.closest(".abbr");
+    if (!container) return;
+    const previewBox = container.querySelector(".preview-container");
+    const img = container.querySelector(".preview-container img");
+    if (!img || !previewBox) return;
+
+    previewBox.classList.remove("d-none");
+    previewBox.style.visibility = "hidden";
+    previewBox.style.position = "absolute";
+    previewBox.style.width = "200px";
+    previewBox.style.height = "auto";
+
+    if (typeof medium_zoom !== "undefined" && medium_zoom) {
+      medium_zoom.open({ target: img });
+
+      medium_zoom.on("closed", function onZoomClosed() {
+        previewBox.classList.add("d-none");
+        previewBox.style.visibility = "";
+        previewBox.style.position = "";
+        previewBox.style.width = "";
+        previewBox.style.height = "";
+        medium_zoom.off("closed", onZoomClosed);
+      });
+    }
+  };
+
   // bootstrap-toc
   if ($("#toc-sidebar").length) {
     // remove related publications years from the TOC

@@ -1,24 +1,69 @@
+{% assign is_compact_logo = false %}
+{% if project.category == 'Journal Reviewing' or project.category == 'Teaching' or project.compact_logo %}
+  {% assign is_compact_logo = true %}
+{% endif %}
+
+{% assign site_name = '' %}
+{% assign site_icon = 'fa-solid fa-arrow-up-right-from-square' %}
+{% if project.redirect contains '://' %}
+  {% assign raw_domain = project.redirect | remove: 'https://' | remove: 'http://' | split: '/' | first | remove: 'www.' %}
+  {% if raw_domain contains 'biomedcentral.com' %}
+    {% assign site_name = 'biomedcentral.com' %}
+  {% elsif raw_domain contains 'nature.com' %}
+    {% assign site_name = 'nature.com' %}
+  {% elsif raw_domain contains 'springer.com' %}
+    {% assign site_name = 'springer.com' %}
+  {% elsif raw_domain contains 'cispa.saarland' %}
+    {% assign site_name = 'cispa.saarland' %}
+  {% elsif raw_domain contains 'facebook.com' %}
+    {% assign site_name = 'facebook.com' %}
+    {% assign site_icon = 'fa-brands fa-facebook' %}
+  {% elsif raw_domain contains 'github.com' %}
+    {% assign site_name = 'github.com' %}
+    {% assign site_icon = 'fa-brands fa-github' %}
+  {% else %}
+    {% assign site_name = raw_domain %}
+  {% endif %}
+{% endif %}
+
 <div class="col">
-  <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">
+  <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}" {% if project.redirect contains '://' %}target="_blank" rel="noopener noreferrer"{% endif %}>
     <div class="card h-100 hoverable">
-      {% if project.img %}
-        {%
-          include figure.liquid
-          loading="eager"
-          path=project.img
-          sizes = "250px"
-          alt="project thumbnail"
-          class="card-img-top"
-        %}
+      {% if project.img and is_compact_logo == false %}
+        <div class="project-img-wrapper" title="Click to zoom image">
+          {%
+            include figure.liquid
+            loading="eager"
+            path=project.img
+            sizes = "250px"
+            alt=project.title
+            class="card-img-top"
+            zoomable=true
+          %}
+        </div>
       {% endif %}
-      <div class="card-body">
-        <h2 class="card-title">{{ project.title }}</h2>
-        <p class="card-text">{{ project.description }}</p>
-        <div class="row ml-1 mr-1 p-0">
+      <div class="card-body d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h3 class="card-title mb-0 flex-grow-1 pr-2">{{ project.title }}</h3>
+          {% if project.img and is_compact_logo %}
+            <div class="project-logo-badge" title="Click to zoom logo">
+              <img src="{{ project.img | prepend: '/' | relative_url }}" class="project-mini-logo" alt="{{ project.title }} logo" data-zoomable>
+            </div>
+          {% endif %}
+        </div>
+        {% if project.description and project.description != '' %}
+          <p class="card-text">{{ project.description }}</p>
+        {% endif %}
+        <div class="mt-auto pt-3 d-flex justify-content-between align-items-center">
+          {% if site_name != '' %}
+            <span class="project-domain-pill">
+              <i class="{{ site_icon }} fa-xs mr-1"></i> <span class="domain-text">{{ site_name }}</span>
+            </span>
+          {% endif %}
           {% if project.github %}
-            <div class="github-icon">
+            <div class="github-icon ml-auto">
               <div class="icon" data-toggle="tooltip" title="Code Repository">
-                <a href="{{ project.github }}"><i class="fa-brands fa-github gh-icon"></i></a>
+                <i class="fa-brands fa-github gh-icon"></i>
               </div>
               {% if project.github_stars %}
                 <span class="stars" data-toggle="tooltip" title="GitHub Stars">

@@ -47,11 +47,6 @@ jobs:
           export JEKYLL_ENV=production
           bundle exec jekyll build
 
-      - name: Purge unused CSS 🧹
-        run: |
-          npm install -g purgecss
-          purgecss -c purgecss.config.js
-
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4

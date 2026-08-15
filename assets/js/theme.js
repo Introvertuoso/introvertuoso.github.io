@@ -4,28 +4,30 @@
 let toggleThemeSetting = () => {
   let themeSetting = determineThemeSetting();
   if (themeSetting == "system") {
-    setThemeSetting("light");
+    setThemeSetting("light", true);
   } else if (themeSetting == "light") {
-    setThemeSetting("dark");
+    setThemeSetting("dark", true);
   } else {
-    setThemeSetting("system");
+    setThemeSetting("system", true);
   }
 };
 
 // Change the theme setting and apply the theme.
-let setThemeSetting = (themeSetting) => {
+let setThemeSetting = (themeSetting, withTransition = false) => {
   localStorage.setItem("theme", themeSetting);
 
   document.documentElement.setAttribute("data-theme-setting", themeSetting);
 
-  applyTheme();
+  applyTheme(withTransition);
 };
 
 // Apply the computed dark or light theme to the website.
-let applyTheme = () => {
+let applyTheme = (withTransition = false) => {
   let theme = determineComputedTheme();
 
-  transTheme();
+  if (withTransition) {
+    transTheme();
+  }
   setHighlight(theme);
   setGiscusTheme(theme);
   setSearchTheme(theme);

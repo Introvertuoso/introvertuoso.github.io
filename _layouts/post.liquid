@@ -73,6 +73,80 @@ layout: default
     </div>
   </article>
 
+  <!-- Post Social Share Section -->
+  <div class="post-share-section">
+    <div class="share-heading">
+      <i class="fa-solid fa-share-nodes"></i> Share this article:
+    </div>
+    <div class="share-buttons">
+      <a
+        href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="share-btn"
+        title="Share on LinkedIn"
+      >
+        <i class="fa-brands fa-linkedin"></i> LinkedIn
+      </a>
+      <a
+        href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="share-btn"
+        title="Share on X (Twitter)"
+      >
+        <i class="fa-brands fa-x-twitter"></i> Post
+      </a>
+      <button
+        type="button"
+        class="share-btn"
+        id="copy-post-link-btn"
+        onclick="navigator.clipboard.writeText(window.location.href); this.innerHTML='<i class=\'fa-solid fa-check\'></i> Copied!'; setTimeout(() => this.innerHTML='<i class=\'fa-solid fa-link\'></i> Copy Link', 2000);"
+        title="Copy Link to Clipboard"
+      >
+        <i class="fa-solid fa-link"></i> Copy Link
+      </button>
+    </div>
+  </div>
+
+  <!-- Post License & AI Disclosure -->
+  <div class="post-license-notice">
+    <div class="license-badge-row">
+      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener noreferrer" class="cc-license-link" title="Creative Commons Attribution 4.0 International">
+        <i class="fa-brands fa-creative-commons"></i>
+        <i class="fa-brands fa-creative-commons-by"></i>
+        <span>CC BY 4.0</span>
+      </a>
+      <span class="license-desc">This article is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener noreferrer">Creative Commons Attribution 4.0 International</a>. You are free to share and adapt this content with attribution.</span>
+    </div>
+    <div class="ai-disclosure-note">
+      <i class="fa-solid fa-wand-magic-sparkles fa-xs"></i> <span><em>Transparency Note:</em> Generative AI tools were used to assist in structuring, drafting, and proofreading this article. All technical content, scientific insights, and code were verified by the author.</span>
+    </div>
+  </div>
+
+  <!-- Next / Previous Post Navigation -->
+  {% if page.previous or page.next %}
+    <nav class="post-bottom-nav">
+      {% if page.previous %}
+        <a href="{{ page.previous.url | relative_url }}" class="post-nav-card prev-card">
+          <span class="nav-label"><i class="fa-solid fa-arrow-left fa-xs"></i> Previous Post</span>
+          <h4 class="nav-title">{{ page.previous.title }}</h4>
+        </a>
+      {% else %}
+        <div></div>
+      {% endif %}
+
+      {% if page.next %}
+        <a href="{{ page.next.url | relative_url }}" class="post-nav-card next-card">
+          <span class="nav-label">Next Post <i class="fa-solid fa-arrow-right fa-xs"></i></span>
+          <h4 class="nav-title">{{ page.next.title }}</h4>
+        </a>
+      {% else %}
+        <div></div>
+      {% endif %}
+    </nav>
+  {% endif %}
+
   {% if page.citation %}
     {% include citation.liquid %}
   {% endif %}

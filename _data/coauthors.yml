@@ -1,34 +1,52 @@
-# "adams":
-#   - firstname: ["Edwin", "E.", "E. P.", "Edwin Plimpton"]
-#     url: https://en.wikipedia.org/wiki/Edwin_Plimpton_Adams
+# Coauthors configuration
+# All coauthors below will be automatically linked in publication entries (Arwa Farhat is omitted as plain text)
 
-# "podolsky":
-#   - firstname: ["Boris", "B.", "B. Y.", "Boris Yakovlevich"]
-#     url: https://en.wikipedia.org/wiki/Boris_Podolsky
+"xu":
+  - firstname: ["Sascha", "S."]
+    url: https://scholar.google.com/citations?user=82xDR9IAAAAJ
 
-# "rosen":
-#   - firstname: ["Nathan", "N."]
-#     url: https://en.wikipedia.org/wiki/Nathan_Rosen
+"walter":
+  - firstname: ["Nils Philipp", "Nils", "N. P.", "N."]
+    url: https://scholar.google.com/citations?user=uMpszvoAAAAJ
 
-# "bach":
-#   - firstname: ["Johann Sebastian", "J. S."]
-#     url: https://en.wikipedia.org/wiki/Johann_Sebastian_Bach
+"vreeken":
+  - firstname: ["Jilles", "J."]
+    url: https://scholar.google.com/citations?user=p5HEQfIAAAAJ
 
-#   - firstname: ["Carl Philipp Emanuel", "C. P. E."]
-#     url: https://en.wikipedia.org/wiki/Carl_Philipp_Emanuel_Bach
+"yousfan":
+  - firstname: ["Amal", "A."]
+    url: https://scholar.google.com/citations?user=lP8uKXEAAAAJ
 
-# "przibram":
-#   - firstname: ["Karl"]
-#     url: https://link.springer.com/article/10.1007/s00016-019-00242-z
+"hanano":
+  - firstname: ["Abdulsamie", "A."]
+    url: https://scholar.google.com/citations?user=-PWi5xYAAAAJ
 
-# "schrodinger":
-#   - firstname: ["Erwin"]
-#     url: https://en.wikipedia.org/wiki/Erwin_Schr%C3%B6dinger
+"al-obaidi":
+  - firstname: ["Hisham", "H."]
+    url: https://scholar.google.com/citations?user=2sgQi00AAAAJ
 
-# "lorentz":
-#   - firstname: ["Hendrik Antoon"]
-#     url: https://en.wikipedia.org/wiki/Hendrik_Lorentz
+"youssef":
+  - firstname: ["Lama A.", "Lama", "L. A.", "L."]
+    url: https://scholar.google.com/citations?user=CnZcgsEAAAAJ
 
-# "planck":
-#   - firstname: ["Max"]
-#     url: https://en.wikipedia.org/wiki/Max_Planck
+"alhalabi":
+  - firstname: ["Marwan", "M."]
+    url: https://scholar.google.com/citations?user=JgQNQYMAAAAJ
+  - firstname: ["Nawras", "N."]
+    url: https://scholar.google.com/citations?hl=en&user=7pRIk54AAAAJ
+
+"al moualem":
+  - firstname: ["Sally", "S."]
+    url: https://scholar.google.com/citations?hl=en&user=NnLnKngAAAAJ
+
+"abouras":
+  - firstname: ["Homam", "H."]
+    url: https://scholar.google.com/citations?hl=en&user=JqZN5pYAAAAJ
+
+"shammout":
+  - firstname: ["Mhd Said", "Said", "M. S."]
+    url: https://scholar.google.com/citations?hl=en&user=C5HNIv8AAAAJ
+
+"al sakaan":
+  - firstname: ["Reem", "R."]
+    url: https://scholar.google.com/citations?hl=en&user=-yMv9uMAAAAJ

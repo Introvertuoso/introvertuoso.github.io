@@ -1,0 +1,45 @@
+name: Update Google Scholar Citations
+
+on:
+  schedule:
+    # Runs every Sunday at 00:00 UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update-citations:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install beautifulsoup4 pyyaml
+
+      - name: Fetch Google Scholar Citations
+        run: |
+          python bin/update_citations.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if [[ -n $(git status --porcelain _bibliography/papers.bib _data/citations.json) ]]; then
+            git add _bibliography/papers.bib _data/citations.json
+            git commit -m "chore(citations): auto-update Google Scholar citation counts"
+            git push origin master
+          else
+            echo "No citation changes detected."
+          fi

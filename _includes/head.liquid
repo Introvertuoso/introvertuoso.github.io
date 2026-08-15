@@ -1,3 +1,27 @@
+<!-- Prevent Theme Flash (FOUC) - Execute synchronously before CSS rendering -->
+<script>
+  (function() {
+    let themeSetting = localStorage.getItem("theme");
+    if (themeSetting !== "dark" && themeSetting !== "light" && themeSetting !== "system") {
+      themeSetting = "system";
+    }
+    let theme = themeSetting;
+    if (themeSetting === "system") {
+      const userPref = window.matchMedia;
+      if (userPref && userPref("(prefers-color-scheme: dark)").matches) {
+        theme = "dark";
+      } else {
+        theme = "light";
+      }
+    }
+    document.documentElement.setAttribute("data-theme-setting", themeSetting);
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="{{ '/assets/manifest.json' | relative_url }}">
+
 <!-- Metadata, OpenGraph and Schema.org -->
 {% include metadata.liquid %}
 

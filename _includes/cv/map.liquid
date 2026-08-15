@@ -5,7 +5,13 @@
         <b>{{ content.name }}</b>
       </td>
       {% if content.value %}
-        <td class="p-1 pl-2 font-weight-light text">{{ content.value }}</td>
+        <td class="p-1 pl-2 font-weight-light text">
+          {% if content.name == 'Email' %}
+            <a href="mailto:{{ content.value | encode_email }}">{{ content.value | encode_email }}</a>
+          {% else %}
+            {{ content.value }}
+          {% endif %}
+        </td>
       {% endif %}
       {% if content.links %}
         <td class="p-1 pl-2 font-weight-light text">

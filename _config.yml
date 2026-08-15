@@ -7,18 +7,19 @@ first_name: Jawad
 middle_name:
 last_name: Al Rahwanji
 email: jawad.rah1g@gmail.com
-description: > # the ">" symbol means to ignore newlines until "footer_text:"
-footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> and <a href="https://github.com/alshedivat/al-folio">al-folio</a>.
-keywords: # add your own keywords or leave empty
+description: >
+  Personal academic website and research portfolio of Jawad Al Rahwanji, Doctoral Researcher at CISPA Helmholtz Center for Information Security working on Explainable AI, Subgroup Discovery, and Biomedical Machine Learning.
+footer_text:
+keywords: "Jawad Al Rahwanji, Mhd Jawad Al Rahwanji, CISPA, Machine Learning, Survival Analysis, Subgroup Discovery, Explainable AI, Neuroexplicit Models, Data Mining, Bioinformatics"
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: fav.jpg # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
 url: https://introvertuoso.github.io # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root
 last_updated: true # set to true if you want to display last updated in the footer
-impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
+impressum_path: /impressum/ # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
 back_to_top: true # set to false to disable the back to top button
+future: true # publish posts regardless of timezone differences
 
 # -----------------------------------------------------------------------------
 # Theme
@@ -59,9 +60,9 @@ max_width: 930px
 # -----------------------------------------------------------------------------
 # Display links to the page with a preview object on social media.
 # see https://schema.org/docs/faq.html for more information
-serve_og_meta: false # Include Open Graph meta tags in the HTML head
-serve_schema_org: false # Include Schema.org in the HTML head
-og_image: # The site-wide (default for all links) Open Graph preview image
+serve_og_meta: true # Include Open Graph meta tags in the HTML head
+serve_schema_org: true # Include Schema.org in the HTML head
+og_image: assets/img/prof_pic.jpg # The site-wide (default for all links) Open Graph preview image
 
 # -----------------------------------------------------------------------------
 # Social integration
@@ -74,7 +75,7 @@ dblp_url: # your DBLP profile url
 discord_id: # your discord id (18-digit unique numerical identifier)
 facebook_id: # your facebook id
 flickr_id: # your flickr id
-github_username: # introvertuoso # your GitHub user name
+github_username: introvertuoso # your GitHub user name
 gitlab_username: # your GitLab user name
 ieee_id: # your ieeexplore.ieee.org/author/id
 instagram_id: # your instagram id
@@ -85,7 +86,7 @@ lattes_id: # your ID on Lattes (Brazilian Lattes CV)
 linkedin_username: mhd-jawad-al-rahwanji # your LinkedIn user name
 mastodon_username: # your mastodon instance+username in the format instance.tld/@username
 medium_username: # your Medium username
-orcid_id: # your ORCID ID
+orcid_id: 0000-0001-8181-752X # your ORCID ID
 osf_id: # your OSF ID
 pinterest_id: # your pinterest id
 publons_id: # AFJ-6167-2022 # your ID on Publons
@@ -216,7 +217,7 @@ kramdown:
       start_line: 1
 
 # Includes & excludes
-include: ["_pages"]
+include: ["_pages", ".well-known"]
 exclude:
   - bin/
   - CONTRIBUTING.md
@@ -294,8 +295,8 @@ jekyll-archives:
     tag: "/blog/tag/:name/"
     category: "/blog/category/:name/"
 
-display_tags: ["formatting", "images", "links", "math", "code", "blockquotes"] # these tags will be displayed on the front page of your blog
-display_categories: ["external-services"] # these categories will be displayed on the front page of your blog
+display_tags: ["machine-learning", "survival-analysis", "subgroup-discovery", "nanomedicine", "drug-delivery", "epidemiology", "public-health", "ivf", "data-science"]
+display_categories: ["research", "machine-learning", "bioinformatics", "public-health", "clinical-science"]
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar
@@ -525,7 +526,7 @@ third_party_libraries:
     version: "1.9.4"
   mathjax:
     integrity:
-      js: "sha256-rjmgmaB99riUNcdlrDtcAiwtLIojSxNyUFdl+Qh+rB4="
+      js: "sha256-YyRhy+F3bG+zvvwsW1E/uy5s5pKXwmG/bOPlV+1pt6o="
     local:
       fonts: "output/chtml/fonts/woff-v2/"
     url:

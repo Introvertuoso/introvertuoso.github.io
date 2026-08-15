@@ -10,67 +10,80 @@ nav: false
 
 This privacy policy explains the nature, scope, and purpose of the processing of personal data on this personal academic website ([https://introvertuoso.github.io](https://introvertuoso.github.io)).
 
-**Data Controller (Verantwortlicher):**  
+**Data Controller (Verantwortlicher im Sinne der DSGVO):**  
 **Mhd Jawad Al Rahwanji**  
-Doctoral Researcher  
+Doctoral Researcher in Machine Learning & Data Mining  
 CISPA Helmholtz Center for Information Security & Saarland University  
 Im Oberen Werk 1, 66386 St. Ingbert, Germany  
 Email: <a href="mailto:{{ site.email | encode_email }}">{{ site.email | encode_email }}</a>  
 
 ---
 
-### 2. Hosting & Server Log Files
+### 2. Hosting on GitHub Pages & Server Log Files
 
-This website is hosted as a static site via **GitHub Pages**, a service provided by:  
+This website is hosted statically via **GitHub Pages**, a cloud service provided by:  
 *GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA* (a subsidiary of Microsoft Corporation).
 
-When you visit this website, GitHub's servers automatically collect and store technical information in server log files that your browser transmits automatically. This includes:
-* Browser type and version
-* Operating system used
-* Referrer URL (previously visited website)
-* Hostname of the accessing device (IP address)
-* Date and time of the server request
+When accessing this website, your web browser automatically transmits technical metadata to GitHub's servers, which is recorded in standard server log files:
+* Browser type, language, and version
+* Operating system used by the accessing terminal
+* Referrer URL (the site previously visited)
+* Hostname / IP address of the accessing client
+* Date and exact time of the server request
+* HTTP status code and volume of transmitted data
 
-**Legal Basis:** Art. 6(1)(f) GDPR (Legitimate Interest in ensuring network security, technical stability, and delivery of website content). GitHub may store IP addresses temporarily for security analysis and DDoS prevention. For details, please refer to the [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement).
-
----
-
-### 3. Cookies & Tracking Technologies
-
-* **No Tracking Cookies:** This website does **not** use tracking cookies, marketing cookies, or profiling mechanisms.
-* **No Analytics Services:** No third-party analytical tools (such as Google Analytics, Hotjar, or Meta Pixel) are deployed.
-* **Theme Preference Storage:** Your preference for light or dark mode is stored locally on your device via HTML5 `localStorage` (`theme: "dark"` or `"light"`). This data remains exclusively in your browser and is never transmitted to any external server.
+**Legal Basis:** Art. 6(1)(f) GDPR (Legitimate Interest in ensuring network security, technical infrastructure stability, and DDoS attack prevention). GitHub processes IP addresses temporarily for security analysis. For full details on GitHub's data processing, consult the [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement).
 
 ---
 
-### 4. External Services & CDN Deliveries
+### 3. Cookies, Local Storage & Search Indexing
 
-To ensure fast load times, typography rendering, and mathematical formula rendering, this website utilizes well-established Content Delivery Networks (CDNs):
-* **Google Fonts:** Hosted stylesheets and font files loaded from Google servers to display clean typography.
-* **FontAwesome & Academicons:** Scalable vector icons for research profiles (ORCID, Google Scholar, GitHub).
-* **MathJax / KaTeX:** Client-side JavaScript libraries for rendering mathematical formulas and LaTeX notation.
-
-When your browser loads these resources from CDNs, your IP address is transmitted to the respective CDN provider for technical delivery.
+* **No Tracking or Advertising Cookies:** This website does **not** employ tracking cookies, marketing pixels, or analytical profiling mechanisms.
+* **Client-Side Theme Preference:** Your selected theme mode (light or dark) is stored locally in your browser using HTML5 `localStorage` (`theme: "dark"` or `"light"`). This preference data never leaves your device and is not transmitted to any server.
+* **In-Browser Search Indexing:** The command search bar (Ninja Keys) performs search operations strictly client-side within your browser's local memory against a pre-built static JSON index. No search queries or keystrokes are transmitted externally.
 
 ---
 
-### 5. Contact Inquiries
+### 4. Content Delivery Networks & External Assets
 
-If you reach out via email, the information you provide (name, email address, message content) will be stored and processed solely for the purpose of answering your inquiry and following up on academic correspondence. This data is not shared with third parties without your explicit consent.
+To provide high-performance delivery, crisp typography, and formula typesetting, standard Content Delivery Networks (CDNs) are utilized:
+* **Google Fonts:** Delivers web typography stylesheets and font files from Google servers.
+* **Font Awesome & Academicons:** Delivers scalable vector icons for academic profiles and interfaces via Cloudflare / jsDelivr CDNs.
+* **MathJax & Medium Zoom:** Client-side JavaScript libraries for rendering mathematical formulas and interactive figure magnification.
 
-**Legal Basis:** Art. 6(1)(b) GDPR (contractual / pre-contractual requests) or Art. 6(1)(f) GDPR (legitimate interest in processing correspondence).
+When your browser retrieves these assets from CDNs, your IP address is processed technically to route and deliver the requested files.
+
+**Legal Basis:** Art. 6(1)(f) GDPR (Legitimate Interest in ensuring uniform, responsive, and aesthetically consistent presentation of academic content).
 
 ---
 
-### 6. Your Rights under the GDPR
+### 5. Social Sharing & Outbound Links
 
-Under Chapter III of the European General Data Protection Regulation (GDPR / DSGVO), you have the following rights regarding your personal data:
-* **Right of Access (Art. 15 GDPR):** Request information about your personal data processed by the controller.
+* **Privacy-Friendly Sharing:** Social sharing buttons (such as LinkedIn and X/Twitter) do **not** embed tracking scripts or trackers on page load. Clicking a share button copies the link/title to your clipboard and opens the respective provider's sharing page in a new window directly with that provider.
+* **External Academic Links:** Links to third-party academic profiles (such as Google Scholar, ORCID, GitHub, Semantic Scholar, dblp, ResearchGate, Dimensions, and DOI version-of-record publishers) are direct standard hyperlinks. When following these external links, the privacy policies of the respective platforms apply.
+
+---
+
+### 6. Contact Inquiries & Correspondence
+
+When contacting the author via email, the information you provide (such as your name, email address, and message content) is processed solely for handling your inquiry and maintaining scholarly correspondence. Your data will not be shared with third parties without your explicit consent.
+
+**Legal Basis:** Art. 6(1)(b) GDPR (contractual / pre-contractual academic correspondence) or Art. 6(1)(f) GDPR (legitimate interest in answering incoming inquiries).
+
+---
+
+### 7. Your Rights under the GDPR
+
+Under Chapter III of the European General Data Protection Regulation (GDPR / DSGVO), you hold the following rights regarding personal data pertaining to you:
+* **Right of Access (Art. 15 GDPR):** Obtain confirmation and information about whether your personal data is processed.
 * **Right to Rectification (Art. 16 GDPR):** Request correction of inaccurate personal data.
 * **Right to Erasure (Art. 17 GDPR):** Request deletion of your personal data ("right to be forgotten").
-* **Right to Restriction of Processing (Art. 18 GDPR):** Request limitation of data processing.
-* **Right to Data Portability (Art. 20 GDPR):** Receive your personal data in a structured, commonly used format.
-* **Right to Object (Art. 21 GDPR):** Object to processing based on legitimate interests.
-* **Right to Lodge a Complaint (Art. 77 GDPR):** Lodge a complaint with a competent data protection supervisory authority (e.g. *Unabhängiges Datenschutzzentrum Saarland*).
+* **Right to Restriction of Processing (Art. 18 GDPR):** Request restriction of data processing.
+* **Right to Data Portability (Art. 20 GDPR):** Receive your personal data in a structured, machine-readable format.
+* **Right to Object (Art. 21 GDPR):** Object at any time to processing based on Art. 6(1)(f) GDPR.
+* **Right to Lodge a Complaint (Art. 77 GDPR):** Lodge a complaint with a competent supervisory authority, such as:  
+  *Unabhängiges Datenschutzzentrum Saarland (UDZ)*  
+  Fritz-Dobisch-Straße 12, 66111 Saarbrücken, Germany  
+  Website: [https://datenschutz.saarland.de](https://datenschutz.saarland.de)
 
-To exercise any of these rights, please contact: <a href="mailto:{{ site.email | encode_email }}">{{ site.email | encode_email }}</a>.
+To exercise your data protection rights, contact: <a href="mailto:{{ site.email | encode_email }}">{{ site.email | encode_email }}</a>.

@@ -1311,34 +1311,6 @@ html[data-theme="dark"] {
   mjx-container[jax="CHTML"][display="true"] {
     display: unset;
   }
-
-  &.about-name {
-    font-weight: normal;
-    white-space: nowrap;
-    font-size: clamp(2.1rem, 4.4vw, 2.7rem);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.35rem;
-
-    .font-weight-bold {
-      font-weight: 700;
-    }
-
-    @media (max-width: 576px) {
-      font-size: clamp(2.15rem, 8.8vw, 2.75rem);
-      white-space: nowrap;
-    }
-
-    @media (max-width: 400px) {
-      font-size: clamp(1.85rem, 8.2vw, 2.15rem);
-      white-space: nowrap;
-    }
-
-    @media (max-width: 340px) {
-      font-size: 1.65rem;
-      white-space: nowrap;
-    }
-  }
 }
 
 .post-list {
@@ -1510,7 +1482,7 @@ html[data-theme="dark"] {
     }
 
     .project-card-footer {
-      margin-top: 2rem !important;
+      margin-top: 0.85rem !important;
       padding-top: 0;
     }
 
@@ -1679,8 +1651,8 @@ html[data-theme="dark"] {
           transition: opacity 0.15s ease, color 0.15s ease;
 
           &:hover {
-            color: var(--global-theme-color);
-            text-decoration: underline;
+            color: var(--global-theme-color) !important;
+            text-decoration: underline !important;
           }
         }
 
@@ -1697,8 +1669,8 @@ html[data-theme="dark"] {
 
           &:hover {
             opacity: 1;
-            color: var(--global-theme-color);
-            text-decoration: underline;
+            color: var(--global-theme-color) !important;
+            text-decoration: underline !important;
           }
         }
       }
@@ -1723,11 +1695,12 @@ html[data-theme="dark"] {
           border-bottom: none;
           cursor: pointer;
           text-decoration: none;
+          display: inline-block;
           transition: opacity 0.15s ease, color 0.15s ease;
 
           &:hover {
-            color: var(--global-theme-color);
-            text-decoration: underline;
+            color: var(--global-theme-color) !important;
+            text-decoration: underline !important;
           }
         }
 
@@ -1744,8 +1717,8 @@ html[data-theme="dark"] {
 
           &:hover {
             opacity: 1;
-            color: var(--global-theme-color);
-            text-decoration: underline;
+            color: var(--global-theme-color) !important;
+            text-decoration: underline !important;
           }
         }
       }
@@ -2121,9 +2094,10 @@ html.transition *:after {
       overflow-wrap: break-word;
 
       &.about-name {
+        margin-top: 0;
         font-weight: normal;
         font-size: clamp(2.1rem, 4.4vw, 2.7rem);
-        line-height: 1.2;
+        line-height: 1.15;
         letter-spacing: -0.02em;
         margin-bottom: 0.35rem;
         white-space: nowrap;
@@ -2133,6 +2107,7 @@ html.transition *:after {
         }
 
         @media (max-width: 576px) {
+          margin-top: 0;
           font-size: clamp(2.15rem, 8.8vw, 2.75rem);
           white-space: nowrap;
         }
@@ -2996,7 +2971,7 @@ ninja-keys::part(ninja-input-wrapper) {
 // Header Side Metric Card (Publications & Activities)
 header.post-header.with-header-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1.5rem;
   margin-bottom: 2rem;

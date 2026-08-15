@@ -24,12 +24,14 @@ Website: [https://introvertuoso.github.io](https://introvertuoso.github.io)
 
 * **Engine & Framework:** Built using [Jekyll](https://jekyllrb.com/) and styled with the [al-folio](https://github.com/alshedivat/al-folio) academic theme.
 * **Hosting:** Hosted as a static website on [GitHub Pages](https://pages.github.com/).
+* **Typography & Icons:** Typeset with Google Fonts, Font Awesome 6, and Academicons.
+* **Formula & Media Rendering:** Formulas rendered client-side with MathJax; interactive figures powered by Medium Zoom.
 
 ---
 
 ### Copyright & Intellectual Property (Urheberrecht)
 
-Except where otherwise noted, the layout, biography text, personal calligraphy, photography, and digital artwork on this website are protected under German and international copyright law:
+Except where otherwise noted, the layout, biography text, personal calligraphy, photography, and digital artwork (including the personal monogram emblems in dark and light modes) on this website are protected under German and international copyright law:
 
 > **© 2024–{{ site.time | date: '%Y' }} Mhd Jawad Al Rahwanji. All rights reserved.**
 
@@ -37,7 +39,7 @@ Any reproduction, processing, distribution, or commercial exploitation outside t
 
 ---
 
-### Content Licensing (Blog Posts & Tutorials)
+### Content Licensing (Blog Posts & Articles)
 
 All standalone technical articles, guides, and blog posts published on this website are licensed under the **[Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)**.
 
@@ -54,15 +56,15 @@ All standalone technical articles, guides, and blog posts published on this webs
 
 ### Open-Source Research Software
 
-Source code for research projects (including [*Sysurv*](https://github.com/Introvertuoso/Sysurv) and [*BrainTargeting*](https://github.com/Introvertuoso/BrainTargeting)) is hosted openly on GitHub under their respective open-source licenses (such as the MIT License) as specified in their repositories.
+Source code for research projects (including [*Sysurv*](https://github.com/Introvertuoso/Sysurv) and [*BrainTargeting*](https://github.com/Introvertuoso/BrainTargeting)) is hosted openly on GitHub under open-source licenses (such as the MIT License) as specified in their respective repositories.
 
 ---
 
 ### Scientific Publications & Publisher Rights
 
-Peer-reviewed journal articles, conference papers, and book chapters linked on this website are subject to the copyright and access agreements of their respective publishers (including *Springer Nature*, *BioMed Central (BMC)*, *Frontiers Media SA*, *American Chemical Society (ACS)*, and *arXiv*). 
+Peer-reviewed journal articles, preprints, and research studies linked on this website are subject to the copyright and distribution agreements of their respective publishers (including *arXiv*, *American Chemical Society (ACS)*, *Frontiers Media SA*, *BioMed Central (BMC)*, and *Springer Nature*). 
 
-Links to official versions of record (DOIs) and preprint archives are provided for academic study, research, and non-commercial educational reference in compliance with green open-access self-archiving policies.
+Links to official versions of record (DOIs) and preprint repositories are provided for academic research and non-commercial educational reference in compliance with green open-access self-archiving policies.
 
 ---
 
@@ -70,9 +72,9 @@ Links to official versions of record (DOIs) and preprint archives are provided f
 
 All product names, logos, emblems, and registered trademarks displayed or cited on this website belong to their respective holders:
 
-* **Academic & Research Institutions:** *Helmholtz Center CISPA*, *Helmholtz Association*, *Saarland University*, *Damascus University*, *Max Planck Institute for Informatics (MPI-INF)*, *EMBL Heidelberg*, *German Center for Neurodegenerative Diseases (DZNE)*.
-* **Publishers & Journals:** *Springer Nature*, *BioMed Central (BMC)*, *Frontiers in Public Health*, *American Chemical Society (ACS)*, *Molecular Pharmaceutics*, *Scientific Reports*, *Journal of Assisted Reproduction and Genetics*, *BMC Women's Health*, *BMC Pregnancy and Childbirth*.
-* **Platforms, Technologies & Products:** *Google Scholar*, *ORCID*, *LinkedIn*, *X (formerly Twitter)*, *Python*, *PyTorch*, *Docker*, *Jekyll*, *Ovitrelle®*.
+* **Academic & Research Institutions:** *CISPA Helmholtz Center for Information Security*, *Helmholtz Association*, *Saarland University*, *Damascus University*, *Max Planck Institute for Informatics (MPI-INF)*, *EMBL Heidelberg*, *German Center for Neurodegenerative Diseases (DZNE)*.
+* **Publishers & Journals:** *arXiv*, *American Chemical Society (ACS)*, *Molecular Pharmaceutics*, *Frontiers Media SA*, *Frontiers in Public Health*, *BioMed Central (BMC)*, *BMC Pregnancy and Childbirth*, *BMC Women's Health*, *Springer Nature*, *Journal of Assisted Reproduction and Genetics*, *Scientific Reports*, *European Medical Journal (EMJ)*.
+* **Platforms, Technologies & Products:** *Google Scholar*, *ORCID*, *LinkedIn*, *X (formerly Twitter)*, *GitHub*, *Semantic Scholar*, *dblp*, *ResearchGate*, *Dimensions*, *Python*, *PyTorch*, *Docker*, *Jekyll*, *Ovitrelle®*.
 
 The use of these names and logos on this website is strictly for identification, scientific attribution, and informational purposes, and does not imply any sponsorship, endorsement, or formal affiliation.
 
@@ -86,4 +88,4 @@ This website contains links to external third-party websites over whose content 
 
 ### Generative AI Transparency Statement
 
-In accordance with principles of transparency in scientific communication, generative AI tools were utilized to assist in structuring, drafting, and proofreading select blog articles and site descriptions. All scientific hypotheses, statistical analyses, experimental validations, and code implementations remain the intellectual work and responsibility of the author.
+In accordance with principles of transparency in scientific communication, generative AI tools were utilized to assist in structuring, drafting, and proofreading select blog articles and site descriptions. All scientific hypotheses, statistical analyses, experimental validations, mathematical formulations, and code implementations remain the intellectual work and responsibility of the author.

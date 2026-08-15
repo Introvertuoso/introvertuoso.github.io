@@ -1,21 +1,11 @@
 <div class="news">
   {% if site.news != blank %}
     {% assign news_size = site.news | size %}
-    <div
-      class="news-table-wrapper"
-      {% if include.limit and site.announcements.scrollable and news_size > 3 %}
-        style="max-height: 60vw; overflow-y: auto;"
-      {% endif %}
-    >
+    <div class="news-table-wrapper">
       <table class="table table-sm table-borderless">
         {% assign news = site.news | reverse %}
-        {% if include.limit and site.announcements.limit %}
-          {% assign news_limit = site.announcements.limit %}
-        {% else %}
-          {% assign news_limit = news_size %}
-        {% endif %}
-        {% for item in news limit: news_limit %}
-          <tr>
+        {% for item in news %}
+          <tr class="news-entry {% if include.limit and forloop.index > 5 %}more-news-item d-none{% endif %}">
             <th scope="row">{{ item.date | date: '%b, %Y' }}</th>
             <td>
               {% if item.inline %}
@@ -27,6 +17,30 @@
           </tr>
         {% endfor %}
       </table>
+      {% if include.limit and news_size > 5 %}
+        <script>
+          function toggleMoreNews(btn) {
+            var section = document.querySelector('.news');
+            if (!section) return;
+            var hiddenRows = section.querySelectorAll('.more-news-item');
+            var isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+            if (isExpanded) {
+              hiddenRows.forEach(function(row) {
+                row.classList.add('d-none');
+              });
+              btn.setAttribute('aria-expanded', 'false');
+              btn.setAttribute('title', 'Show more announcements');
+            } else {
+              hiddenRows.forEach(function(row) {
+                row.classList.remove('d-none');
+              });
+              btn.setAttribute('aria-expanded', 'true');
+              btn.setAttribute('title', 'Show fewer announcements');
+            }
+          }
+        </script>
+      {% endif %}
     </div>
   {% else %}
     <p>No news so far...</p>

@@ -17,18 +17,6 @@ $(document).ready(function () {
   });
   $("a").removeClass("waves-effect waves-light");
 
-  // Prevent typographic orphans by binding the last two words of titles with a non-breaking space
-  $(".title, .post-title:not(.about-name), .featured-title, .card-title, .post-list li h3 a").each(function () {
-    let $el = $(this);
-    if ($el.children().length === 0) {
-      let text = $el.text().trim();
-      let lastSpace = text.lastIndexOf(" ");
-      if (lastSpace > 0) {
-        $el.html(text.substring(0, lastSpace) + "&nbsp;" + text.substring(lastSpace + 1));
-      }
-    }
-  });
-
   // Smooth mobile figure magnification handler
   window.openMobilePreview = function (btn) {
     const container = btn.closest(".abbr");
@@ -159,5 +147,141 @@ function hideMoreAuthors(el) {
   var $list = $less.closest('.more-authors-list');
   $list.hide();
   $list.siblings('.more-authors').fadeIn(150);
+}
+
+// Expandable Article Titles with Typewriter Animation
+function initExpandableTitles() {
+  $('ol.bibliography li .title').each(function () {
+    var $el = $(this);
+    if ($el.data('title-initialized')) return;
+
+    var fullText = $el.text().trim();
+    $el.data('full-text', fullText);
+
+    // Create a temporary hidden clone to measure line height and breaks accurately
+    var $parent = $el.parent();
+    var parentWidth = $parent.width();
+    if (!parentWidth || parentWidth <= 0) return;
+
+    var $clone = $('<div></div>').css({
+      position: 'absolute',
+      visibility: 'hidden',
+      height: 'auto',
+      width: parentWidth + 'px',
+      'max-width': parentWidth + 'px',
+      'font-size': $el.css('font-size'),
+      'font-weight': $el.css('font-weight'),
+      'line-height': $el.css('line-height'),
+      'font-family': $el.css('font-family'),
+      'letter-spacing': $el.css('letter-spacing'),
+      'white-space': 'normal'
+    }).appendTo($parent);
+
+    $clone.text('Test');
+    var singleLineHeight = $clone.height();
+    $clone.text(fullText);
+    var fullHeight = $clone.height();
+
+    // If it wraps to 2 or more lines
+    if (fullHeight > singleLineHeight * 1.35) {
+      var words = fullText.split(/\s+/);
+      var line1Words = [];
+      var line2Words = [];
+
+      for (var i = 1; i <= words.length; i++) {
+        var testStr = words.slice(0, i).join(' ') + ' ...';
+        $clone.text(testStr);
+        if ($clone.height() > singleLineHeight * 1.25) {
+          line1Words = words.slice(0, Math.max(1, i - 1));
+          line2Words = words.slice(Math.max(1, i - 1));
+          break;
+        }
+      }
+
+      if (line1Words.length > 0 && line2Words.length > 0) {
+        $el.data('title-initialized', true);
+        var line1Text = line1Words.join(' ');
+        var restText = ' ' + line2Words.join(' ');
+
+        $el.html(
+          '<span class="title-primary">' + line1Text + '</span>' +
+          '<span class="more-title" role="button" tabindex="0" title="Click to expand full title" onclick="typeMoreTitle(this, 12);">...</span>' +
+          '<span class="more-title-rest" style="display: none;" data-full-rest="' + encodeURIComponent(restText) + '">' +
+          restText +
+          '<span class="less-title" role="button" tabindex="0" title="Click to collapse" onclick="hideMoreTitle(this);">(show less)</span>' +
+          '</span>'
+        );
+      }
+    }
+    $clone.remove();
+  });
+}
+
+function typeMoreTitle(el, speed) {
+  var $btn = $(el);
+  var $rest = $btn.siblings('.more-title-rest');
+  $btn.hide();
+
+  var restRaw = decodeURIComponent($rest.data('full-rest') || '');
+  var container = $rest[0];
+  container.innerHTML = '';
+  $rest.show();
+
+  var i = 0;
+  var interval = setInterval(function () {
+    if (i < restRaw.length) {
+      container.appendChild(document.createTextNode(restRaw[i++]));
+    } else {
+      clearInterval(interval);
+      var lessBtn = document.createElement('span');
+      lessBtn.className = 'less-title';
+      lessBtn.setAttribute('role', 'button');
+      lessBtn.setAttribute('tabindex', '0');
+      lessBtn.setAttribute('title', 'Click to collapse');
+      lessBtn.textContent = ' (show less)';
+      lessBtn.onclick = function () { hideMoreTitle(this); };
+      container.appendChild(lessBtn);
+    }
+  }, speed || 12);
+}
+
+function hideMoreTitle(el) {
+  var $less = $(el);
+  var $rest = $less.closest('.more-title-rest');
+  var $btn = $rest.siblings('.more-title');
+  $rest.hide();
+  $btn.fadeIn(150);
+}
+
+$(document).ready(function () {
+  initExpandableTitles();
+  if (document.fonts) {
+    document.fonts.ready.then(initExpandableTitles);
+  }
+});
+$(window).on('resize', function () {
+  // Re-check on resize if not already expanded
+  initExpandableTitles();
+});
+
+// LinkedIn Share with Clipboard Auto-Copy & Feedback
+function shareOnLinkedIn(btn, url, title) {
+  var articleUrl = url || window.location.href;
+  var shareText = title ? (title + '\n' + articleUrl) : articleUrl;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(shareText).catch(function () {});
+  }
+
+  if (btn) {
+    var origHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Link Copied!';
+    setTimeout(function () {
+      btn.innerHTML = origHtml;
+    }, 2500);
+  }
+
+  var shareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(articleUrl);
+  window.open(shareUrl, '_blank', 'width=620,height=600,resizable=yes,scrollbars=yes');
 }
 

@@ -80,11 +80,12 @@ layout: default
     </div>
     <div class="share-buttons">
       <a
-        href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url }}"
+        href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | url_encode }}"
         target="_blank"
         rel="noopener noreferrer"
         class="share-btn"
         title="Share on LinkedIn"
+        onclick="shareOnLinkedIn(this, '{{ page.url | absolute_url }}', '{{ page.title | escape }}'); return false;"
       >
         <i class="fa-brands fa-linkedin"></i> LinkedIn
       </a>

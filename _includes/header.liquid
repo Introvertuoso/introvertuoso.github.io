@@ -4,13 +4,14 @@
     <div class="container">
       <div class="navbar-brand-wrapper d-inline-flex align-items-center">
         {% if page.permalink != '/' and page.url != '/' and page.permalink != nil %}
-          <a class="navbar-brand title font-weight-lighter mr-1" href="{{ site.baseurl }}/">
-            {%- if site.title == 'blank' -%}
-              <span class="d-none d-sm-inline">{% if site.first_name %}<span class="font-weight-bold">{{ site.first_name }}</span> {% endif %}{% if site.middle_name %}{{ site.middle_name }} {% endif %}{% if site.last_name %}{{ site.last_name }}{% endif %}</span>
-              <span class="d-inline d-sm-none">{% if site.first_name %}<span class="font-weight-bold">{{ site.first_name | slice: 0 }}.</span> {% endif %}{% if site.last_name %}{{ site.last_name }}{% endif %}</span>
-            {%- else -%}
-              {{- site.title -}}
-            {%- endif -%}
+          <a class="navbar-brand title font-weight-lighter" href="{{ site.baseurl }}/" title="{{ site.first_name }} {{ site.last_name }}">
+            <!-- Desktop: Name only (bold first name, no logo) -->
+            <span class="d-none d-sm-inline">{% if site.first_name %}<span class="font-weight-bold">{{ site.first_name }}</span> {% endif %}{% if site.middle_name %}{{ site.middle_name }} {% endif %}{% if site.last_name %}{{ site.last_name }}{% endif %}</span>
+            <!-- Mobile: Logo only (replaces name) -->
+            <div class="navbar-brand-logo d-inline-flex d-sm-none">
+              <img src="{{ '/assets/img/logo_dark.png' | relative_url }}" alt="Logo" class="navbar-logo-img logo-dark">
+              <img src="{{ '/assets/img/logo_light.png' | relative_url }}" alt="Logo" class="navbar-logo-img logo-light">
+            </div>
           </a>
         {% endif %}
         <div class="navbar-brand-social d-inline-flex align-items-center">

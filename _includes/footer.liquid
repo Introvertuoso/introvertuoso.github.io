@@ -1,17 +1,33 @@
 {% if site.footer_fixed %}
   <footer class="fixed-bottom" role="contentinfo">
     <div class="container mt-0">
-      &copy; Copyright {{ site.time | date: '%Y' }}
-      {{ site.first_name }}
-      {{ site.middle_name }}
-      {{ site.last_name }}.
-      {% if site.impressum_path %}
-        <a href="{{ site.impressum_path | prepend: site.baseurl }}">Impressum</a>.
-      {% endif %}
-      <a href="{{ '/privacy/' | prepend: site.baseurl }}">Privacy Policy</a>.
-      {% if site.last_updated %}
-        Last updated: {{ 'now' | date: '%B %d, %Y' }}.
-      {% endif %}
+      <div class="footer-text">
+        <div class="footer-legal">
+          {% if site.impressum_path %}
+            <a href="{{ site.impressum_path | prepend: site.baseurl }}">Impressum</a>
+            <span class="footer-dot">&middot;</span>
+          {% endif %}
+          <a href="{{ '/privacy/' | prepend: site.baseurl }}">Privacy Policy</a>
+        </div>
+        {% if site.last_updated %}
+          <div class="footer-last-updated">Last updated on {{ 'now' | date: '%B %d, %Y' }}</div>
+        {% endif %}
+        <div class="footer-copyright">
+          &copy; Copyright {{ site.time | date: '%Y' }} {{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}
+        </div>
+      </div>
+      <div class="footer-brand-wrapper">
+        <div class="footer-brand">
+          <div class="footer-logo-box">
+            <img src="{{ '/assets/img/logo_dark.png' | relative_url }}" alt="Logo" class="footer-personal-logo logo-dark">
+            <img src="{{ '/assets/img/logo_light.png' | relative_url }}" alt="Logo" class="footer-personal-logo logo-light">
+          </div>
+          <span class="footer-brand-divider d-none d-sm-inline-block"></span>
+          <span class="footer-brand-name d-none d-sm-inline">
+            <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.last_name }}
+          </span>
+        </div>
+      </div>
     </div>
   </footer>
 {% else %}
@@ -21,17 +37,43 @@
     {% endif %}
 
     <div class="container">
-      &copy; Copyright {{ site.time | date: '%Y' }}
-      {{ site.first_name }}
-      {{ site.middle_name }}
-      {{ site.last_name }}.
-      {% if site.impressum_path %}
-        <a href="{{ site.impressum_path | prepend: site.baseurl }}">Impressum</a>.
-      {% endif %}
-      <a href="{{ '/privacy/' | prepend: site.baseurl }}">Privacy Policy</a>.
-      {% if site.last_updated %}
-        Last updated: {{ 'now' | date: '%B %d, %Y' }}.
-      {% endif %}
+      <!-- Left side: Footer text stack (flush left) -->
+      <div class="footer-text">
+        <!-- Legal Links -->
+        <div class="footer-legal">
+          {% if site.impressum_path %}
+            <a href="{{ site.impressum_path | prepend: site.baseurl }}">Impressum</a>
+            <span class="footer-dot">&middot;</span>
+          {% endif %}
+          <a href="{{ '/privacy/' | prepend: site.baseurl }}">Privacy Policy</a>
+        </div>
+
+        <!-- Last updated -->
+        {% if site.last_updated %}
+          <div class="footer-last-updated">
+            Last updated on {{ 'now' | date: '%B %d, %Y' }}
+          </div>
+        {% endif %}
+
+        <!-- Copyright -->
+        <div class="footer-copyright">
+          &copy; Copyright {{ site.time | date: '%Y' }} {{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}
+        </div>
+      </div>
+
+      <!-- Right side: Logo | Name (flush right, vertically centered, non-linking) -->
+      <div class="footer-brand-wrapper">
+        <div class="footer-brand">
+          <div class="footer-logo-box">
+            <img src="{{ '/assets/img/logo_dark.png' | relative_url }}" alt="Logo" class="footer-personal-logo logo-dark">
+            <img src="{{ '/assets/img/logo_light.png' | relative_url }}" alt="Logo" class="footer-personal-logo logo-light">
+          </div>
+          <span class="footer-brand-divider d-none d-sm-inline-block"></span>
+          <span class="footer-brand-name d-none d-sm-inline">
+            <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.last_name }}
+          </span>
+        </div>
+      </div>
     </div>
   </footer>
 {% endif %}

@@ -34,6 +34,10 @@ Through statistical testing, our study established:
 * **GnRHa Long Protocol Association:** This optimal outcome was especially pronounced in the case of the **gonadotropin-releasing hormone agonist (GnRHa) long protocol**.
 * **Clinical Recommendation:** This cohort study recommends retrieval at **hour 37** after ovulation triggering under the described conditions.
 
+<div class="mt-4 mb-4 text-center">
+  {% include figure.liquid loading="eager" path="assets/img/ivf.png" class="img-fluid rounded z-depth-1" zoomable=true alt="Optimal Period for Oocyte Retrieval in IVF" %}
+</div>
+
 ---
 
 ## 3. Article & Data Archive

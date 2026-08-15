@@ -28,24 +28,20 @@ pagination:
   </div>
 {% endif %}
 
-{% if site.display_tags.size > 0 or site.tags.size > 0 or site.display_categories.size > 0 %}
+{% if site.categories.size > 0 or site.tags.size > 0 %}
   <div class="tag-scroll-wrapper">
     <div class="tag-scroll-banner" id="tag-filter-banner">
       <button type="button" class="tag-chip active-chip" data-filter="all">
         <i class="fa-solid fa-layer-group fa-xs"></i> All
       </button>
-      {% for category in site.display_categories %}
-        <button type="button" class="tag-chip category-chip" data-filter-type="category" data-filter="{{ category | slugify }}">
-          <i class="fa-solid fa-tag fa-xs"></i> {{ category }}
+      {% for category in site.categories %}
+        <button type="button" class="tag-chip category-chip" data-filter-type="category" data-filter="{{ category[0] | slugify }}">
+          <i class="fa-solid fa-tag fa-xs"></i> {{ category[0] }}
         </button>
       {% endfor %}
-      {% assign blog_tags = site.display_tags %}
-      {% if blog_tags == blank or blog_tags.size == 0 %}
-        {% assign blog_tags = site.tags | map: 0 %}
-      {% endif %}
-      {% for tag in blog_tags %}
-        <button type="button" class="tag-chip hashtag-chip" data-filter-type="tag" data-filter="{{ tag | slugify }}">
-          <i class="fa-solid fa-hashtag fa-xs"></i> {{ tag }}
+      {% for tag in site.tags %}
+        <button type="button" class="tag-chip hashtag-chip" data-filter-type="tag" data-filter="{{ tag[0] | slugify }}">
+          <i class="fa-solid fa-hashtag fa-xs"></i> {{ tag[0] }}
         </button>
       {% endfor %}
     </div>

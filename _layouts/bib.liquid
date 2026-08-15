@@ -205,10 +205,7 @@
     {% if entry.additional_info %}
       {% capture entrytype %}{{ entrytype }}{{ entry.additional_info | markdownify | remove: '<p>' | remove: '</p>' }}{% endcapture %}
     {% endif %}
-    {% capture hook_exists %}{% file_exists _includes/hook.liquid %}{% endcapture %}
-    {% if hook_exists == 'true' %}
-      {% include hook.liquid %}
-    {% endif %}
+
     {% assign entrytype_text = entrytype | strip_html | strip %}
     {% capture period %}{% if entrytype_text != "" %}.{% endif %}{% endcapture %}
     <div class="periodical">

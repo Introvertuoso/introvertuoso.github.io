@@ -295,8 +295,8 @@ jekyll-archives:
     tag: "/blog/tag/:name/"
     category: "/blog/category/:name/"
 
-display_tags: ["machine-learning", "survival-analysis", "subgroup-discovery", "nanomedicine", "drug-delivery", "epidemiology", "public-health", "ivf", "data-science"]
-display_categories: ["research", "machine-learning", "bioinformatics", "public-health", "clinical-science"]
+display_tags: []
+display_categories: []
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar

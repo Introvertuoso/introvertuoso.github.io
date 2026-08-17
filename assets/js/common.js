@@ -1,21 +1,31 @@
 $(document).ready(function () {
-  // add toggle functionality to abstract, award and bibtex buttons
-  $("a.abstract").click(function () {
-    $(this).parent().parent().find(".abstract.hidden").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden.open").toggleClass("open");
+  // add robust delegated toggle functionality to abstract, award and bibtex buttons
+  $(document).on("click", "a.abstract", function (e) {
+    e.preventDefault();
+    var $entry = $(this).closest("li");
+    $entry.find(".award.hidden.open").removeClass("open");
+    $entry.find(".bibtex.hidden.open").removeClass("open");
+    $entry.find(".abstract.hidden").toggleClass("open");
   });
-  $("a.award").click(function () {
-    $(this).parent().parent().find(".abstract.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden.open").toggleClass("open");
+  $(document).on("click", "a.award", function (e) {
+    e.preventDefault();
+    var $entry = $(this).closest("li");
+    $entry.find(".abstract.hidden.open").removeClass("open");
+    $entry.find(".bibtex.hidden.open").removeClass("open");
+    $entry.find(".award.hidden").toggleClass("open");
   });
-  $("a.bibtex").click(function () {
-    $(this).parent().parent().find(".abstract.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden").toggleClass("open");
+  $(document).on("click", "a.bibtex", function (e) {
+    e.preventDefault();
+    var $entry = $(this).closest("li");
+    $entry.find(".abstract.hidden.open").removeClass("open");
+    $entry.find(".award.hidden.open").removeClass("open");
+    $entry.find(".bibtex.hidden").toggleClass("open");
   });
-  $("a").removeClass("waves-effect waves-light");
+  $("a, .navbar-nav a, .nav-link").removeClass("waves-effect waves-light");
+  if (typeof Waves !== "undefined" && typeof Waves.detach === "function") {
+    Waves.detach(".navbar-nav a");
+    Waves.detach(".nav-link");
+  }
 
   // Smooth mobile figure magnification handler
   window.openMobilePreview = function (btn) {
@@ -87,9 +97,85 @@ $(document).ready(function () {
 });
 
 // HTML-preserving typewriter animation for coauthor expansion
+function initResponsiveAuthors() {
+  $('.author').each(function () {
+    var $author = $(this);
+    $author.addClass('author-initialized');
+    var $items = $author.find('.author-item');
+    var $btn = $author.find('.more-authors');
+    var $list = $author.find('.more-authors-list');
+
+    if ($items.length <= 1) return;
+
+    // Do not collapse if currently expanded by user
+    if ($list.is(':visible') && $list.children().length > 0) {
+      return;
+    }
+
+    // Reset items to visible to accurately measure height
+    $items.show();
+    $items.find('.author-and').show();
+    $btn.hide();
+    $list.hide().empty();
+
+    // Baseline height of a single-line author element
+    $items.hide();
+    $items.first().show();
+    var singleLineHeight = $author.height() || 24;
+    $items.show();
+
+    // Check if all authors fit on 1 line
+    if ($author.height() <= singleLineHeight + 4) {
+      $btn.hide();
+      return;
+    }
+
+    // Find the maximum number of authors k that fit on line 1 alongside "..."
+    var total = $items.length;
+    var best = 1;
+
+    for (var k = total - 1; k >= 1; k--) {
+      $items.hide();
+      for (var i = 0; i < k; i++) {
+        $items.eq(i).show();
+      }
+      $items.find('.author-and').hide();
+
+      $btn.text('...').attr('title', 'Click to expand all ' + total + ' authors').show();
+
+      var isSingleLine = ($author.height() <= singleLineHeight + 4) &&
+                         ($btn[0].offsetTop <= $items.first()[0].offsetTop + 6);
+
+      if (isSingleLine) {
+        best = k;
+        break;
+      }
+    }
+
+    // Apply the best fitting author count
+    $items.hide();
+    for (var i = 0; i < best; i++) {
+      $items.eq(i).show();
+    }
+    $items.find('.author-and').hide();
+
+    $btn.text('...').attr('title', 'Click to expand all ' + total + ' authors').show();
+
+    // Prepare full HTML for the hidden authors in $list
+    var hiddenHtml = "";
+    for (var i = best; i < total; i++) {
+      var itemHtml = $items.eq(i).find('.author-name-wrap').html();
+      hiddenHtml += ", " + (i === total - 1 ? "and " : "") + itemHtml;
+    }
+    hiddenHtml += ' <span class="less-authors" role="button" tabindex="0" title="Click to collapse">(show less)</span>';
+    $list.data('full-html', hiddenHtml);
+  });
+}
+
 function typeMoreAuthors(el, speed) {
   var $btn = $(el);
-  var $list = $btn.siblings('.more-authors-list');
+  var $author = $btn.closest('.author');
+  var $list = $author.find('.more-authors-list');
   $btn.hide();
 
   var fullHtml = $list.data('full-html');
@@ -116,7 +202,6 @@ function typeMoreAuthors(el, speed) {
         }
       } else if (node.nodeType === Node.ELEMENT_NODE) {
         var clone = node.cloneNode(false);
-        // Bind onclick if needed
         if (node.classList && node.classList.contains('less-authors')) {
           clone.onclick = function() { hideMoreAuthors(this); };
         }
@@ -144,87 +229,92 @@ function typeMoreAuthors(el, speed) {
 
 function hideMoreAuthors(el) {
   var $less = $(el);
-  var $list = $less.closest('.more-authors-list');
+  var $author = $less.closest('.author');
+  var $list = $author.find('.more-authors-list');
+  var $btn = $author.find('.more-authors');
   $list.hide();
-  $list.siblings('.more-authors').fadeIn(150);
+  $list.empty();
+  $btn.fadeIn(150);
 }
 
-// Expandable Article Titles with Typewriter Animation
-function initExpandableTitles() {
-  $('ol.bibliography li .title').each(function () {
-    var $el = $(this);
-    if ($el.data('title-initialized')) return;
+function initResponsiveTitles() {
+  $('.title[data-full-title]').each(function () {
+    var $title = $(this);
+    $title.addClass('title-initialized');
+    var $primary = $title.find('.title-primary');
+    var $btn = $title.find('.more-title');
+    var $rest = $title.find('.more-title-rest');
 
-    var fullText = $el.text().trim();
-    $el.data('full-text', fullText);
+    if (!$primary.length) return;
 
-    // Create a temporary hidden clone to measure line height and breaks accurately
-    var $parent = $el.parent();
-    var parentWidth = $parent.width();
-    if (!parentWidth || parentWidth <= 0) return;
+    // Do not collapse if currently expanded by user
+    if ($rest.is(':visible') && $rest.text().trim().length > 0) {
+      return;
+    }
 
-    var $clone = $('<div></div>').css({
-      position: 'absolute',
-      visibility: 'hidden',
-      height: 'auto',
-      width: parentWidth + 'px',
-      'max-width': parentWidth + 'px',
-      'font-size': $el.css('font-size'),
-      'font-weight': $el.css('font-weight'),
-      'line-height': $el.css('line-height'),
-      'font-family': $el.css('font-family'),
-      'letter-spacing': $el.css('letter-spacing'),
-      'white-space': 'normal'
-    }).appendTo($parent);
+    var fullTitle = $title.attr('data-full-title') || '';
+    if (!fullTitle) return;
 
-    $clone.text('Test');
-    var singleLineHeight = $clone.height();
-    $clone.text(fullText);
-    var fullHeight = $clone.height();
+    var words = fullTitle.split(/\s+/);
+    if (words.length <= 2) {
+      $primary.text(fullTitle);
+      $btn.hide();
+      $rest.hide().empty().attr('data-full-rest', '');
+      return;
+    }
 
-    // If it wraps to 2 or more lines
-    if (fullHeight > singleLineHeight * 1.35) {
-      var words = fullText.split(/\s+/);
-      var line1Words = [];
-      var line2Words = [];
+    // Measure single line height baseline
+    $primary.text('Sample');
+    $btn.hide();
+    $rest.hide().empty();
+    var singleLineHeight = $primary.height() || 24;
 
-      for (var i = 1; i <= words.length; i++) {
-        var testStr = words.slice(0, i).join(' ') + ' ...';
-        $clone.text(testStr);
-        if ($clone.height() > singleLineHeight * 1.25) {
-          line1Words = words.slice(0, Math.max(1, i - 1));
-          line2Words = words.slice(Math.max(1, i - 1));
-          break;
-        }
-      }
+    // Test if full title fits on a single line
+    $primary.text(fullTitle);
+    if ($primary.height() <= singleLineHeight + 4) {
+      $btn.hide();
+      $rest.attr('data-full-rest', '');
+      return;
+    }
 
-      if (line1Words.length > 0 && line2Words.length > 0) {
-        $el.data('title-initialized', true);
-        var line1Text = line1Words.join(' ');
-        var restText = ' ' + line2Words.join(' ');
+    // Binary search maximum word count that fits on line 1 alongside "..."
+    $btn.show();
+    var low = 1;
+    var high = words.length - 1;
+    var best = 1;
 
-        $el.html(
-          '<span class="title-primary">' + line1Text + '</span>' +
-          '<span class="more-title" role="button" tabindex="0" title="Click to expand full title" onclick="typeMoreTitle(this, 12);">...</span>' +
-          '<span class="more-title-rest" style="display: none;" data-full-rest="' + encodeURIComponent(restText) + '">' +
-          restText +
-          '<span class="less-title" role="button" tabindex="0" title="Click to collapse" onclick="hideMoreTitle(this);">(show less)</span>' +
-          '</span>'
-        );
+    while (low <= high) {
+      var mid = Math.floor((low + high) / 2);
+      $primary.text(words.slice(0, mid).join(' '));
+
+      var fitsOnSingleLine = ($primary.height() <= singleLineHeight + 4) &&
+                            ($btn[0].offsetTop <= $primary[0].offsetTop + 6);
+
+      if (fitsOnSingleLine) {
+        best = mid;
+        low = mid + 1;
+      } else {
+        high = mid - 1;
       }
     }
-    $clone.remove();
+
+    $primary.text(words.slice(0, best).join(' '));
+    $rest.attr('data-full-rest', words.slice(best).join(' '));
+    $btn.show();
   });
 }
 
 function typeMoreTitle(el, speed) {
   var $btn = $(el);
-  var $rest = $btn.siblings('.more-title-rest');
+  var $rest = $btn.siblings(".more-title-rest");
   $btn.hide();
 
-  var restRaw = decodeURIComponent($rest.data('full-rest') || '');
+  var restText = ($rest.attr("data-full-rest") || "").trim();
+  if (!restText) return;
+
+  var restRaw = " " + restText;
   var container = $rest[0];
-  container.innerHTML = '';
+  container.innerHTML = "";
   $rest.show();
 
   var i = 0;
@@ -233,13 +323,15 @@ function typeMoreTitle(el, speed) {
       container.appendChild(document.createTextNode(restRaw[i++]));
     } else {
       clearInterval(interval);
-      var lessBtn = document.createElement('span');
-      lessBtn.className = 'less-title';
-      lessBtn.setAttribute('role', 'button');
-      lessBtn.setAttribute('tabindex', '0');
-      lessBtn.setAttribute('title', 'Click to collapse');
-      lessBtn.textContent = ' (show less)';
-      lessBtn.onclick = function () { hideMoreTitle(this); };
+      var lessBtn = document.createElement("span");
+      lessBtn.className = "less-title";
+      lessBtn.setAttribute("role", "button");
+      lessBtn.setAttribute("tabindex", "0");
+      lessBtn.setAttribute("title", "Click to collapse");
+      lessBtn.textContent = " (show less)";
+      lessBtn.onclick = function () {
+        hideMoreTitle(this);
+      };
       container.appendChild(lessBtn);
     }
   }, speed || 12);
@@ -247,21 +339,32 @@ function typeMoreTitle(el, speed) {
 
 function hideMoreTitle(el) {
   var $less = $(el);
-  var $rest = $less.closest('.more-title-rest');
-  var $btn = $rest.siblings('.more-title');
+  var $rest = $less.closest(".more-title-rest");
+  var $btn = $rest.siblings(".more-title");
   $rest.hide();
+  $rest.empty();
   $btn.fadeIn(150);
 }
 
+function initResponsiveLayout() {
+  initResponsiveTitles();
+  initResponsiveAuthors();
+}
+
+// Auto-run responsive title & author fitting on ready, load, fonts ready, and resize
 $(document).ready(function () {
-  initExpandableTitles();
-  if (document.fonts) {
-    document.fonts.ready.then(initExpandableTitles);
-  }
+  initResponsiveLayout();
 });
+$(window).on('load', function () {
+  initResponsiveLayout();
+});
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(initResponsiveLayout);
+}
+var _layoutResizeTimeout = null;
 $(window).on('resize', function () {
-  // Re-check on resize if not already expanded
-  initExpandableTitles();
+  if (_layoutResizeTimeout) clearTimeout(_layoutResizeTimeout);
+  _layoutResizeTimeout = setTimeout(initResponsiveLayout, 100);
 });
 
 // LinkedIn Share with Clipboard Auto-Copy & Feedback
@@ -284,4 +387,17 @@ function shareOnLinkedIn(btn, url, title) {
   var shareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(articleUrl);
   window.open(shareUrl, '_blank', 'width=620,height=600,resizable=yes,scrollbars=yes');
 }
+
+// Blog Reading Progress Bar
+$(window).on('scroll', function () {
+  var $bar = $('#scroll-progress-bar');
+  if ($bar.length) {
+    var winTop = $(window).scrollTop();
+    var docHeight = $(document).height() - $(window).height();
+    if (docHeight > 0) {
+      var pct = Math.min(100, Math.max(0, (winTop / docHeight) * 100));
+      $bar.css('width', pct + '%');
+    }
+  }
+});
 

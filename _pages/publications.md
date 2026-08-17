@@ -13,21 +13,19 @@ header_card: scholar
 
 {% bibliography %}
 
-</div>
-
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const headings = document.querySelectorAll('.publications h2.bibliography');
+(function() {
+  var headings = document.querySelectorAll('.publications h2.bibliography');
   headings.forEach(function(h2) {
-    const nextElem = h2.nextElementSibling;
+    var nextElem = h2.nextElementSibling;
     if (nextElem && (nextElem.tagName === 'OL' || nextElem.classList.contains('bibliography'))) {
-      const details = document.createElement('details');
+      var details = document.createElement('details');
       details.className = 'collapsible-category';
       details.open = true;
 
-      const summary = document.createElement('summary');
+      var summary = document.createElement('summary');
       summary.className = 'category-summary';
-      summary.innerHTML = `<h2 class="category">${h2.innerHTML}</h2><i class="fa-solid fa-chevron-down category-chevron"></i>`;
+      summary.innerHTML = '<h2 class="category">' + h2.innerHTML + '</h2><i class="fa-solid fa-chevron-down category-chevron"></i>';
 
       h2.parentNode.insertBefore(details, h2);
       details.appendChild(summary);
@@ -35,5 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
       h2.remove();
     }
   });
-});
+})();
 </script>
+
+</div>

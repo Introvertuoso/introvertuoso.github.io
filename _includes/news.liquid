@@ -19,21 +19,46 @@
       </table>
       {% if include.limit and news_size > 5 %}
         <script>
+          var _newsCollapseTimeout = null;
           function toggleMoreNews(btn) {
             var section = document.querySelector('.news');
             if (!section) return;
             var hiddenRows = section.querySelectorAll('.more-news-item');
             var isExpanded = btn.getAttribute('aria-expanded') === 'true';
 
+            if (_newsCollapseTimeout) {
+              clearTimeout(_newsCollapseTimeout);
+              _newsCollapseTimeout = null;
+            }
+
             if (isExpanded) {
-              hiddenRows.forEach(function(row) {
-                row.classList.add('d-none');
+              // Graceful reverse collapse: items fold upwards sequentially
+              var total = hiddenRows.length;
+              hiddenRows.forEach(function(row, idx) {
+                row.classList.remove('unravel-in');
+                var reverseIdx = (total - 1) - idx;
+                row.style.animationDelay = (reverseIdx * 25) + 'ms';
+                row.classList.add('ravel-out');
               });
               btn.setAttribute('aria-expanded', 'false');
               btn.setAttribute('title', 'Show more announcements');
+
+              _newsCollapseTimeout = setTimeout(function() {
+                if (btn.getAttribute('aria-expanded') === 'false') {
+                  hiddenRows.forEach(function(row) {
+                    row.classList.add('d-none');
+                    row.classList.remove('ravel-out');
+                    row.style.animationDelay = '';
+                  });
+                }
+              }, (total * 25) + 220);
             } else {
-              hiddenRows.forEach(function(row) {
+              // Graceful cascade unravel: items slide down sequentially
+              hiddenRows.forEach(function(row, idx) {
                 row.classList.remove('d-none');
+                row.classList.remove('ravel-out');
+                row.style.animationDelay = (idx * 40) + 'ms';
+                row.classList.add('unravel-in');
               });
               btn.setAttribute('aria-expanded', 'true');
               btn.setAttribute('title', 'Show fewer announcements');

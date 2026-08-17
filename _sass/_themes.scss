@@ -8,6 +8,7 @@
   --global-text-color: #{$black-color};
   --global-text-color-light: #{$grey-color};
   --global-theme-color: #{$purple-color};
+  --global-theme-color-rgb: #{red($purple-color)}, #{green($purple-color)}, #{blue($purple-color)};
   --global-hover-color: #{$purple-color};
   --global-hover-text-color: #{$white-color};
   --global-footer-bg-color: #{$grey-color-dark};
@@ -75,6 +76,7 @@ html[data-theme="dark"] {
   --global-text-color: #{$grey-color-light};
   --global-text-color-light: #{$grey-color};
   --global-theme-color: #{$cyan-color};
+  --global-theme-color-rgb: #{red($cyan-color)}, #{green($cyan-color)}, #{blue($cyan-color)};
   --global-hover-color: #{$cyan-color};
   --global-hover-text-color: #{$white-color};
   --global-footer-bg-color: #{$grey-color-light};
@@ -152,5 +154,20 @@ html[data-theme-setting="light"] {
 
   #light-toggle-light {
     display: inline-flex !important;
+  }
+}
+
+// Animate ONLY on active user interaction (not on page navigation/load)
+html.transition {
+  &[data-theme-setting="system"] #light-toggle-system {
+    animation: celestialSync 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  &[data-theme-setting="dark"] #light-toggle-dark {
+    animation: moonAscent 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  &[data-theme-setting="light"] #light-toggle-light {
+    animation: sunriseRise 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 }

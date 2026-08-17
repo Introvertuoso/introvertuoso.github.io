@@ -12,59 +12,63 @@
     {% assign site_name = 'cispa.saarland' %}
   {% elsif raw_domain contains 'facebook.com' %}
     {% assign site_name = 'facebook.com' %}
-    {% assign site_icon = 'fa-brands fa-facebook' %}
   {% elsif raw_domain contains 'github.com' %}
     {% assign site_name = 'github.com' %}
-    {% assign site_icon = 'fa-brands fa-github' %}
   {% else %}
     {% assign site_name = raw_domain %}
   {% endif %}
 {% endif %}
 
 <div class="col">
-  <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}" {% if project.redirect contains '://' %}target="_blank" rel="noopener noreferrer"{% endif %}>
-    <div class="card h-100 hoverable">
-      {% if project.img %}
-        <div class="project-img-wrapper" title="Click to zoom image">
-          {%
-            include figure.liquid
-            loading="eager"
-            path=project.img
-            sizes = "250px"
-            alt=project.title
-            class="card-img-top"
-            zoomable=true
-          %}
-        </div>
+  <div class="card h-100 hoverable">
+    {% if project.img %}
+      <div class="project-img-wrapper" title="Click to zoom image">
+        {%
+          include figure.liquid
+          loading="eager"
+          path=project.img
+          sizes = "250px"
+          alt=project.title
+          class="card-img-top"
+          zoomable=true
+        %}
+      </div>
+    {% endif %}
+    <div class="card-body d-flex flex-column">
+      <h3 class="card-title">
+        <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}" {% if project.redirect contains '://' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+          {{ project.title }}
+        </a>
+      </h3>
+      {% if project.description and project.description != '' %}
+        <p class="card-text">{{ project.description }}</p>
       {% endif %}
-      <div class="card-body d-flex flex-column">
-        <h3 class="card-title">{{ project.title }}</h3>
-        {% if project.description and project.description != '' %}
-          <p class="card-text">{{ project.description }}</p>
-        {% endif %}
-        {% if site_name != '' or project.github %}
-          <div class="project-card-footer mt-auto d-flex justify-content-between align-items-center">
-            {% if site_name != '' %}
+      {% if site_name != '' or project.github %}
+        <div class="project-card-footer mt-auto d-flex justify-content-between align-items-center">
+          {% if site_name != '' %}
+            <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}" {% if project.redirect contains '://' %}target="_blank" rel="noopener noreferrer"{% endif %} class="project-domain-pill-link">
               <span class="project-domain-pill">
                 <i class="{{ site_icon }} fa-xs mr-1"></i> <span class="domain-text">{{ site_name }}</span>
               </span>
-            {% endif %}
-            {% if project.github %}
-              <div class="github-icon ml-auto">
+            </a>
+          {% endif %}
+          {% if project.github %}
+            <div class="github-icon ml-auto">
+              <a href="https://github.com/{{ project.github }}" target="_blank" rel="noopener noreferrer">
                 <div class="icon" data-toggle="tooltip" title="Code Repository">
                   <i class="fa-brands fa-github gh-icon"></i>
                 </div>
-                {% if project.github_stars %}
-                  <span class="stars" data-toggle="tooltip" title="GitHub Stars">
-                    <i class="fa-solid fa-star"></i>
-                    <span id="{{ project.github_stars }}-stars"></span>
-                  </span>
-                {% endif %}
-              </div>
-            {% endif %}
-          </div>
-        {% endif %}
-      </div>
+              </a>
+              {% if project.github_stars %}
+                <span class="stars" data-toggle="tooltip" title="GitHub Stars">
+                  <i class="fa-solid fa-star"></i>
+                  <span id="{{ project.github_stars }}-stars"></span>
+                </span>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
     </div>
-  </a>
+  </div>
 </div>

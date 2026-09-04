@@ -1,25 +1,343 @@
 $(document).ready(function () {
-  // add robust delegated toggle functionality to abstract, award and bibtex buttons
+  // Smooth graceful accordion animation for publication abstract, bibtex, and award dropdowns
+  var BIB_ANIM_DURATION_EXPAND = 480;
+  var BIB_ANIM_DURATION_COLLAPSE = 400;
+  var BIB_ANIM_EASING = "cubic-bezier(0.22, 1, 0.36, 1)";
+
+  function collapseBibPanel(panel, duration) {
+    if (!panel) return;
+    duration = duration || BIB_ANIM_DURATION_COLLAPSE;
+
+    if (panel._bibAnimTimeout) {
+      clearTimeout(panel._bibAnimTimeout);
+      panel._bibAnimTimeout = null;
+    }
+
+    var isCurrentlyOpen = panel.classList.contains("open");
+    var isCollapsing = panel.classList.contains("collapsing");
+    if (!isCurrentlyOpen && !isCollapsing && panel.offsetHeight === 0) {
+      return;
+    }
+
+    var currentHeight = panel.offsetHeight;
+
+    // Lock starting geometry without transition
+    panel.style.transition = "none";
+    panel.style.height = currentHeight + "px";
+    panel.style.marginTop = getComputedStyle(panel).marginTop;
+    panel.style.overflow = "hidden";
+
+    panel.classList.add("collapsing");
+    panel.classList.remove("open");
+
+    // Force reflow so starting state is committed
+    void panel.offsetHeight;
+
+    // Animate smoothly to 0 with cubic-bezier easing matching the news dropdown
+    panel.style.transition =
+      "height " + duration + "ms " + BIB_ANIM_EASING + ", " +
+      "margin-top " + duration + "ms " + BIB_ANIM_EASING + ", " +
+      "opacity " + Math.round(duration * 0.75) + "ms ease, " +
+      "border-color " + Math.round(duration * 0.6) + "ms ease";
+    panel.style.height = "0px";
+    panel.style.marginTop = "0px";
+    panel.style.opacity = "0";
+    panel.style.borderColor = "transparent";
+
+    panel._bibAnimTimeout = setTimeout(function () {
+      panel.classList.remove("collapsing");
+      panel.style.transition = "";
+      panel.style.height = "";
+      panel.style.marginTop = "";
+      panel.style.opacity = "";
+      panel.style.borderColor = "";
+      panel.style.overflow = "";
+      panel._bibAnimTimeout = null;
+    }, duration);
+  }
+
+  function expandBibPanel(panel, duration) {
+    if (!panel) return;
+    duration = duration || BIB_ANIM_DURATION_EXPAND;
+
+    if (panel._bibAnimTimeout) {
+      clearTimeout(panel._bibAnimTimeout);
+      panel._bibAnimTimeout = null;
+    }
+
+    if (panel.classList.contains("open") && !panel.classList.contains("collapsing") && !panel.style.height) {
+      return;
+    }
+
+    var startHeight = panel.offsetHeight || 0;
+    var startMarginTop = parseFloat(getComputedStyle(panel).marginTop) || 0;
+
+    // Temporarily calculate natural open height
+    panel.style.transition = "none";
+    panel.style.visibility = "hidden";
+    panel.style.height = "auto";
+    panel.style.marginTop = "0.5rem";
+    panel.classList.remove("collapsing");
+    panel.classList.add("open");
+
+    var targetHeight = panel.offsetHeight;
+
+    // Revert to start state before browser paint
+    panel.classList.remove("open");
+    panel.style.visibility = "";
+    panel.style.height = startHeight + "px";
+    panel.style.marginTop = startMarginTop + "px";
+    panel.style.opacity = startHeight > 0 ? getComputedStyle(panel).opacity : "0";
+    panel.style.borderColor = "transparent";
+    panel.style.overflow = "hidden";
+
+    // Force reflow
+    void panel.offsetHeight;
+
+    // Animate smoothly to natural height
+    panel.classList.add("open");
+    panel.style.transition =
+      "height " + duration + "ms " + BIB_ANIM_EASING + ", " +
+      "margin-top " + duration + "ms " + BIB_ANIM_EASING + ", " +
+      "opacity " + duration + "ms ease, " +
+      "border-color " + Math.round(duration * 0.75) + "ms ease";
+    panel.style.height = targetHeight + "px";
+    panel.style.marginTop = "0.5rem";
+    panel.style.opacity = "1";
+    panel.style.borderColor = "";
+
+    panel._bibAnimTimeout = setTimeout(function () {
+      if (panel.classList.contains("open") && !panel.classList.contains("collapsing")) {
+        panel.style.height = "";
+        panel.style.transition = "";
+        panel.style.marginTop = "";
+        panel.style.opacity = "";
+        panel.style.borderColor = "";
+        panel.style.overflow = "";
+      }
+      panel._bibAnimTimeout = null;
+    }, duration);
+  }
+
+  function handleBibToggle(btn, type) {
+    var $entry = $(btn).closest("li, .entry, .row");
+    if (!$entry.length) return;
+
+    var targetPanel = null;
+    if (type === "bibtex") {
+      targetPanel = $entry.find(".bibtex.hidden")[0];
+    } else if (type === "award") {
+      targetPanel = $entry.find(".award.hidden")[0];
+    } else if (type === "abstract") {
+      var btnText = $(btn).text().trim().toLowerCase();
+      if (btnText === "video") {
+        var videoPanel = $entry.find(".abstract.hidden").filter(function () {
+          return $(this).find("video, iframe").length > 0;
+        })[0];
+        targetPanel = videoPanel || $entry.find(".abstract.hidden").last()[0];
+      } else {
+        targetPanel = $entry.find(".abstract.hidden").first()[0];
+      }
+    }
+
+    if (!targetPanel) return;
+
+    var isOpen = targetPanel.classList.contains("open") && !targetPanel.classList.contains("collapsing");
+
+    if (isOpen) {
+      $(btn).attr("aria-expanded", "false");
+      collapseBibPanel(targetPanel);
+    } else {
+      $entry.find("a.abstract, a.bibtex, a.award").attr("aria-expanded", "false");
+      $(btn).attr("aria-expanded", "true");
+
+      // Gracefully collapse any other open panels in this publication entry
+      $entry.find(".hidden.open, .hidden.collapsing").each(function () {
+        if (this !== targetPanel) {
+          collapseBibPanel(this);
+        }
+      });
+      expandBibPanel(targetPanel);
+    }
+  }
+
   $(document).on("click", "a.abstract", function (e) {
     e.preventDefault();
-    var $entry = $(this).closest("li");
-    $entry.find(".award.hidden.open").removeClass("open");
-    $entry.find(".bibtex.hidden.open").removeClass("open");
-    $entry.find(".abstract.hidden").toggleClass("open");
+    handleBibToggle(this, "abstract");
   });
   $(document).on("click", "a.award", function (e) {
     e.preventDefault();
-    var $entry = $(this).closest("li");
-    $entry.find(".abstract.hidden.open").removeClass("open");
-    $entry.find(".bibtex.hidden.open").removeClass("open");
-    $entry.find(".award.hidden").toggleClass("open");
+    handleBibToggle(this, "award");
   });
   $(document).on("click", "a.bibtex", function (e) {
     e.preventDefault();
-    var $entry = $(this).closest("li");
-    $entry.find(".abstract.hidden.open").removeClass("open");
-    $entry.find(".award.hidden.open").removeClass("open");
-    $entry.find(".bibtex.hidden").toggleClass("open");
+    handleBibToggle(this, "bibtex");
+  });
+
+  // Graceful unraveling and smooth accordion for collapsible categories (.collapsible-category)
+  // in Publications, Activities, and Recreation
+  var CAT_ANIM_DURATION_EXPAND = 520;
+  var CAT_ANIM_DURATION_COLLAPSE = 480;
+  var CAT_ANIM_EASING = "cubic-bezier(0.22, 1, 0.36, 1)";
+
+  function ensureCategoryWrapper(details) {
+    var content = details.querySelector(".collapsible-category-content");
+    if (!content) {
+      content = document.createElement("div");
+      content.className = "collapsible-category-content";
+      var children = Array.from(details.children);
+      children.forEach(function (child) {
+        if (child.tagName.toLowerCase() !== "summary") {
+          content.appendChild(child);
+        }
+      });
+      details.appendChild(content);
+    }
+    return content;
+  }
+
+  // Initialize any category without wrapper
+  $("details.collapsible-category").each(function () {
+    ensureCategoryWrapper(this);
+  });
+
+  function collapseCategory(details, duration) {
+    if (!details) return;
+    duration = duration || CAT_ANIM_DURATION_COLLAPSE;
+    var content = ensureCategoryWrapper(details);
+    if (!content) return;
+
+    if (details._catAnimTimeout) {
+      clearTimeout(details._catAnimTimeout);
+      details._catAnimTimeout = null;
+    }
+
+    if (!details.open && !details.classList.contains("is-collapsing")) {
+      return;
+    }
+
+    details.classList.add("is-collapsing");
+    details.classList.remove("is-expanding");
+
+    // Current rendered layout height
+    var currentHeight = content.offsetHeight;
+    content.style.transition = "none";
+    content.style.height = currentHeight + "px";
+    content.style.overflow = "hidden";
+
+    // Gracefully ravel out child entries
+    var items = content.querySelectorAll("ol.bibliography > li, .row > .col, .row > [class*=\"col-\"]");
+    var total = items.length;
+    items.forEach(function (item, idx) {
+      item.classList.remove("category-item-unravel-in");
+      var reverseIdx = Math.min((total - 1) - idx, 8);
+      item.style.animationDelay = (reverseIdx * 25) + "ms";
+      item.classList.add("category-item-ravel-out");
+    });
+
+    // Force reflow
+    void content.offsetHeight;
+
+    // Smoothly animate height down to 0
+    content.style.transition =
+      "height " + duration + "ms " + CAT_ANIM_EASING + ", " +
+      "opacity " + Math.round(duration * 0.75) + "ms ease";
+    content.style.height = "0px";
+    content.style.opacity = "0";
+
+    details._catAnimTimeout = setTimeout(function () {
+      details.removeAttribute("open");
+      details.classList.remove("is-collapsing");
+      content.style.transition = "";
+      content.style.height = "";
+      content.style.opacity = "";
+      content.style.overflow = "";
+      items.forEach(function (item) {
+        item.classList.remove("category-item-ravel-out");
+        item.style.animationDelay = "";
+      });
+      details._catAnimTimeout = null;
+    }, duration);
+  }
+
+  function expandCategory(details, duration) {
+    if (!details) return;
+    duration = duration || CAT_ANIM_DURATION_EXPAND;
+    var content = ensureCategoryWrapper(details);
+    if (!content) return;
+
+    if (details._catAnimTimeout) {
+      clearTimeout(details._catAnimTimeout);
+      details._catAnimTimeout = null;
+    }
+
+    var startHeight = details.classList.contains("is-collapsing") ? content.offsetHeight : 0;
+
+    details.classList.remove("is-collapsing");
+    details.classList.add("is-expanding");
+
+    if (!details.open) {
+      details.setAttribute("open", "");
+    }
+
+    // Measure target natural open height
+    content.style.transition = "none";
+    content.style.visibility = "hidden";
+    content.style.height = "auto";
+    content.style.opacity = "1";
+    var targetHeight = content.offsetHeight;
+
+    // Restore to start position before next paint
+    content.style.visibility = "";
+    content.style.height = startHeight + "px";
+    content.style.opacity = startHeight > 0 ? getComputedStyle(content).opacity : "0";
+    content.style.overflow = "hidden";
+
+    // Force reflow
+    void content.offsetHeight;
+
+    // Gracefully unravel in child entries with a subtle stagger
+    var items = content.querySelectorAll("ol.bibliography > li, .row > .col, .row > [class*=\"col-\"]");
+    items.forEach(function (item, idx) {
+      item.classList.remove("category-item-ravel-out");
+      item.style.animationDelay = Math.min(idx * 35, 280) + "ms";
+      item.classList.add("category-item-unravel-in");
+    });
+
+    // Smoothly animate height up to targetHeight
+    content.style.transition =
+      "height " + duration + "ms " + CAT_ANIM_EASING + ", " +
+      "opacity " + duration + "ms ease";
+    content.style.height = targetHeight + "px";
+    content.style.opacity = "1";
+
+    details._catAnimTimeout = setTimeout(function () {
+      if (details.open && !details.classList.contains("is-collapsing")) {
+        content.style.transition = "";
+        content.style.height = "";
+        content.style.opacity = "";
+        content.style.overflow = "";
+        details.classList.remove("is-expanding");
+        items.forEach(function (item) {
+          item.classList.remove("category-item-unravel-in");
+          item.style.animationDelay = "";
+        });
+      }
+      details._catAnimTimeout = null;
+    }, duration + 60);
+  }
+
+  $(document).on("click", "details.collapsible-category > summary.category-summary", function (e) {
+    e.preventDefault();
+    var details = this.closest("details.collapsible-category");
+    if (!details) return;
+
+    var isOpen = details.open && !details.classList.contains("is-collapsing");
+    if (isOpen) {
+      collapseCategory(details);
+    } else {
+      expandCategory(details);
+    }
   });
   $("a, .navbar-nav a, .nav-link").removeClass("waves-effect waves-light");
   if (typeof Waves !== "undefined" && typeof Waves.detach === "function") {
@@ -31,27 +349,13 @@ $(document).ready(function () {
   window.openMobilePreview = function (btn) {
     const container = btn.closest(".abbr");
     if (!container) return;
-    const previewBox = container.querySelector(".preview-container");
     const img = container.querySelector(".preview-container img");
-    if (!img || !previewBox) return;
+    if (!img) return;
 
-    previewBox.classList.remove("d-none");
-    previewBox.style.visibility = "hidden";
-    previewBox.style.position = "absolute";
-    previewBox.style.width = "200px";
-    previewBox.style.height = "auto";
-
-    if (typeof medium_zoom !== "undefined" && medium_zoom) {
+    if (window.zoomImage) {
+      window.zoomImage(img);
+    } else if (typeof medium_zoom !== "undefined" && medium_zoom) {
       medium_zoom.open({ target: img });
-
-      medium_zoom.on("closed", function onZoomClosed() {
-        previewBox.classList.add("d-none");
-        previewBox.style.visibility = "";
-        previewBox.style.position = "";
-        previewBox.style.width = "";
-        previewBox.style.height = "";
-        medium_zoom.off("closed", onZoomClosed);
-      });
     }
   };
 
@@ -224,7 +528,7 @@ function typeMoreAuthors(el, speed) {
     } else if (task.type === 'char') {
       task.target.appendChild(document.createTextNode(task.char));
     }
-  }, speed || 12);
+  }, speed || 10);
 }
 
 function hideMoreAuthors(el) {
@@ -334,7 +638,7 @@ function typeMoreTitle(el, speed) {
       };
       container.appendChild(lessBtn);
     }
-  }, speed || 12);
+  }, speed || 10);
 }
 
 function hideMoreTitle(el) {

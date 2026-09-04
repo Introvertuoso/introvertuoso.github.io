@@ -7,7 +7,7 @@
         <!-- Desktop: Full Thumbnail Image with Click-to-Zoom -->
         <div class="preview-container d-none d-sm-block">
           {% if entry.preview contains '://' %}
-            <img class="preview z-depth-1 rounded" src="{{ entry.preview }}" data-zoomable alt="{{ entry.title }} preview">
+            <img class="preview z-depth-1 rounded" src="{{ entry.preview }}" data-zoomable data-zoom-src="{{ entry.preview }}" alt="{{ entry.title }} preview">
           {% else %}
             {% assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' %}
             {%
@@ -53,7 +53,7 @@
         role="button"
         tabindex="0"
         title="Click to expand full title"
-        onclick="typeMoreTitle(this, {{ site.more_title_animation_delay | default: 12 }});"
+        onclick="typeMoreTitle(this, {{ site.more_title_animation_delay | default: site.more_authors_animation_delay | default: 10 }});"
         {% if word_count <= title_limit %}style="display: none;"{% endif %}
       >...</span>
       <span class="more-title-rest" style="display: none;" data-full-rest="{% if word_count > title_limit %}{{ rest_words_str | xml_escape }}{% endif %}"></span>

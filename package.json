@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "citations": "python3 bin/update_citations.py"
+  },
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "1.4.0",
     "prettier": "3.1.1"

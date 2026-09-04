@@ -27,9 +27,13 @@ header_card: scholar
       summary.className = 'category-summary';
       summary.innerHTML = '<h2 class="category">' + h2.innerHTML + '</h2><i class="fa-solid fa-chevron-down category-chevron"></i>';
 
+      var content = document.createElement('div');
+      content.className = 'collapsible-category-content';
+      content.appendChild(nextElem);
+
       h2.parentNode.insertBefore(details, h2);
       details.appendChild(summary);
-      details.appendChild(nextElem);
+      details.appendChild(content);
       h2.remove();
     }
   });

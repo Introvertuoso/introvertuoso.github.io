@@ -23,6 +23,8 @@
           function toggleMoreNews(btn) {
             var section = document.querySelector('.news');
             if (!section) return;
+            var wrapper = section.querySelector('.news-table-wrapper');
+            if (!wrapper) return;
             var hiddenRows = section.querySelectorAll('.more-news-item');
             var isExpanded = btn.getAttribute('aria-expanded') === 'true';
 
@@ -31,17 +33,44 @@
               _newsCollapseTimeout = null;
             }
 
+            var animEasing = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
             if (isExpanded) {
-              // Graceful reverse collapse: items fold upwards sequentially
+              btn.setAttribute('aria-expanded', 'false');
+              btn.setAttribute('title', 'Show more announcements');
+
+              var currentHeight = wrapper.offsetHeight;
+              wrapper.style.transition = 'none';
+              wrapper.style.height = currentHeight + 'px';
+              wrapper.style.overflow = 'hidden';
+
+              var targetHeight = wrapper._collapsedHeight;
+              var baseRows = section.querySelectorAll('tr.news-entry:not(.more-news-item)');
+              if (baseRows.length > 0) {
+                var table = wrapper.querySelector('table');
+                var tableRect = table ? table.getBoundingClientRect() : wrapper.getBoundingClientRect();
+                var lastRowRect = baseRows[baseRows.length - 1].getBoundingClientRect();
+                var measuredHeight = Math.round(lastRowRect.bottom - tableRect.top);
+                if (!targetHeight || Math.abs(targetHeight - measuredHeight) > 10) {
+                  targetHeight = measuredHeight;
+                }
+              }
+              if (!targetHeight || targetHeight <= 0) {
+                targetHeight = 150;
+              }
+
               var total = hiddenRows.length;
               hiddenRows.forEach(function(row, idx) {
                 row.classList.remove('unravel-in');
                 var reverseIdx = (total - 1) - idx;
-                row.style.animationDelay = (reverseIdx * 25) + 'ms';
+                row.style.animationDelay = (reverseIdx * 30) + 'ms';
                 row.classList.add('ravel-out');
               });
-              btn.setAttribute('aria-expanded', 'false');
-              btn.setAttribute('title', 'Show more announcements');
+
+              void wrapper.offsetHeight;
+              var duration = 480;
+              wrapper.style.transition = 'height ' + duration + 'ms ' + animEasing;
+              wrapper.style.height = targetHeight + 'px';
 
               _newsCollapseTimeout = setTimeout(function() {
                 if (btn.getAttribute('aria-expanded') === 'false') {
@@ -50,18 +79,41 @@
                     row.classList.remove('ravel-out');
                     row.style.animationDelay = '';
                   });
+                  wrapper.style.height = '';
+                  wrapper.style.transition = '';
                 }
-              }, (total * 25) + 220);
+              }, duration);
             } else {
-              // Graceful cascade unravel: items slide down sequentially
+              btn.setAttribute('aria-expanded', 'true');
+              btn.setAttribute('title', 'Show fewer announcements');
+
+              var startHeight = wrapper.offsetHeight;
+              wrapper._collapsedHeight = startHeight;
+              wrapper.style.transition = 'none';
+              wrapper.style.height = startHeight + 'px';
+              wrapper.style.overflow = 'hidden';
+
               hiddenRows.forEach(function(row, idx) {
                 row.classList.remove('d-none');
                 row.classList.remove('ravel-out');
-                row.style.animationDelay = (idx * 40) + 'ms';
+                row.style.animationDelay = (idx * 45) + 'ms';
                 row.classList.add('unravel-in');
               });
-              btn.setAttribute('aria-expanded', 'true');
-              btn.setAttribute('title', 'Show fewer announcements');
+
+              var table = wrapper.querySelector('table');
+              var targetHeight = Math.max(wrapper.scrollHeight, table ? table.offsetHeight : 0);
+
+              void wrapper.offsetHeight;
+              var duration = 520;
+              wrapper.style.transition = 'height ' + duration + 'ms ' + animEasing;
+              wrapper.style.height = targetHeight + 'px';
+
+              _newsCollapseTimeout = setTimeout(function() {
+                if (btn.getAttribute('aria-expanded') === 'true') {
+                  wrapper.style.height = '';
+                  wrapper.style.transition = '';
+                }
+              }, duration + 50);
             }
           }
         </script>

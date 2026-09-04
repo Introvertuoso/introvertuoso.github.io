@@ -494,7 +494,6 @@ ul.task-list input[type="checkbox"] {
 
     .navbar-brand-social.social-animating-out {
       animation: navbarSocialDividerOut 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
-      will-change: border-left-color, border-left-width, padding-left;
     }
 
     .navbar-brand-social {

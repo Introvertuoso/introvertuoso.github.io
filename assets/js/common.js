@@ -705,3 +705,84 @@ $(window).on('scroll', function () {
   }
 });
 
+// Navbar Name Move In/Out Transitions (Between About and Other Pages)
+$(document).ready(function () {
+  var brandTitleEl = document.querySelector('a.navbar-brand.title');
+  var homePath = (brandTitleEl ? brandTitleEl.getAttribute('href') : '/') || '/';
+  var homeAnchor = document.createElement('a');
+  homeAnchor.href = homePath;
+  var canonicalHomePath = homeAnchor.pathname.replace(/\/+$/, '') || '/';
+
+  function isHomeUrl(urlStr) {
+    if (!urlStr) return false;
+    try {
+      var a = document.createElement('a');
+      a.href = urlStr;
+      var path = a.pathname.replace(/\/+$/, '') || '/';
+      return path === canonicalHomePath && (a.host === window.location.host);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  var currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+  var isCurrentlyHome = (currentPath === canonicalHomePath);
+
+  // 1. If currently on Home/About, track outgoing navigation clicks to any subpage
+  if (isCurrentlyHome) {
+    $(document).on('click', 'a', function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var href = $(this).attr('href');
+      if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+      try {
+        var a = document.createElement('a');
+        a.href = href;
+        if (a.host === window.location.host) {
+          var destPath = a.pathname.replace(/\/+$/, '') || '/';
+          if (destPath !== canonicalHomePath) {
+            sessionStorage.setItem('nav_from_about', 'true');
+          }
+        }
+      } catch (err) {}
+    });
+  } else {
+    // 2. If on a subpage, intercept clicks navigating back to Home/About to play exit animation
+    $(document).on('click', 'a', function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var href = $(this).attr('href');
+      if (isHomeUrl(href)) {
+        var $brandTitle = $('a.navbar-brand.title:not(.title-hidden)');
+        if ($brandTitle.length) {
+          e.preventDefault();
+          var targetHref = this.href;
+
+          $brandTitle.addClass('title-animating-out');
+          $brandTitle.next('.navbar-brand-social').addClass('social-animating-out');
+
+          var navigated = false;
+          function doNavigate() {
+            if (!navigated) {
+              navigated = true;
+              window.location.href = targetHref;
+            }
+          }
+
+          $brandTitle.one('animationend webkitAnimationEnd', doNavigate);
+          setTimeout(doNavigate, 230);
+        }
+      }
+    });
+  }
+
+  // BFCache safety: reset any exit animation classes if page is restored from back/forward cache
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      $('a.navbar-brand.title').removeClass('title-animating-out');
+      $('.navbar-brand-social').removeClass('social-animating-out');
+    }
+  });
+});
+
+

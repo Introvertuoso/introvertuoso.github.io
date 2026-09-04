@@ -1,19 +1,50 @@
 <header>
+  <script>
+    (function () {
+      try {
+        var isAbout = {% if page.permalink == '/' or page.url == '/' or page.url == '/index.html' %}true{% else %}false{% endif %};
+        var fromAbout = sessionStorage.getItem('nav_from_about') === 'true';
+        if (!fromAbout && document.referrer) {
+          try {
+            var refUrl = new URL(document.referrer);
+            var homeUrl = new URL('{{ site.baseurl }}/', window.location.origin);
+            if (refUrl.origin === window.location.origin && refUrl.pathname === homeUrl.pathname) {
+              fromAbout = true;
+            }
+          } catch (e) {}
+        }
+        if (!isAbout && fromAbout) {
+          document.documentElement.classList.add('nav-from-about');
+          sessionStorage.removeItem('nav_from_about');
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              document.documentElement.classList.add('nav-from-about-active');
+            });
+          });
+          setTimeout(function () {
+            document.documentElement.classList.remove('nav-from-about', 'nav-from-about-active');
+          }, 500);
+        }
+      } catch (err) {}
+    })();
+  </script>
   <!-- Nav Bar -->
-  <nav id="navbar" class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
+  <nav id="navbar" class="navbar navbar-light navbar-expand-md {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">
       <div class="navbar-brand-wrapper d-inline-flex align-items-center">
-        {% if page.permalink != '/' and page.url != '/' and page.permalink != nil %}
-          <a class="navbar-brand title font-weight-lighter" href="{{ site.baseurl }}/" title="{{ site.first_name }} {{ site.last_name }}">
-            <!-- Desktop: Name only (bold first name, no logo) -->
-            <span class="d-none d-sm-inline">{% if site.first_name %}<span class="font-weight-bold">{{ site.first_name }}</span> {% endif %}{% if site.middle_name %}{{ site.middle_name }} {% endif %}{% if site.last_name %}{{ site.last_name }}{% endif %}</span>
-            <!-- Mobile: Logo only (replaces name) -->
-            <div class="navbar-brand-logo d-inline-flex d-sm-none">
-              <img src="{{ '/assets/img/logo_dark.png' | relative_url }}" alt="Logo" class="navbar-logo-img logo-dark">
-              <img src="{{ '/assets/img/logo_light.png' | relative_url }}" alt="Logo" class="navbar-logo-img logo-light">
-            </div>
-          </a>
+        {% assign is_about_page = false %}
+        {% if page.permalink == '/' or page.url == '/' or page.url == '/index.html' %}
+          {% assign is_about_page = true %}
         {% endif %}
+        <a class="navbar-brand title font-weight-lighter{% if is_about_page %} title-hidden{% endif %}" href="{{ site.baseurl }}/" title="{{ site.first_name }} {{ site.last_name }}">
+          <!-- Name text (desktop / wider screens >= 860px) -->
+          <span class="navbar-brand-name">{% if site.first_name %}<span class="font-weight-bold">{{ site.first_name }}</span>{% endif %}{% if site.middle_name %}&nbsp;{{ site.middle_name }}{% endif %}{% if site.last_name %}&nbsp;{{ site.last_name }}{% endif %}</span>
+          <!-- Mobile & Tablet (< 860px): Logo only (replaces name) -->
+          <div class="navbar-brand-logo">
+            <img src="{{ '/assets/img/logo_dark.png' | relative_url }}" alt="Logo" class="navbar-logo-img logo-dark">
+            <img src="{{ '/assets/img/logo_light.png' | relative_url }}" alt="Logo" class="navbar-logo-img logo-light">
+          </div>
+        </a>
         <div class="navbar-brand-social d-inline-flex align-items-center">
           {% if site.orcid_id %}
             <a class="brand-social-icon" href="https://orcid.org/{{ site.orcid_id }}" title="ORCID" target="_blank" rel="noopener noreferrer">

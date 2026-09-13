@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Visited our <a href='https://www.linkedin.com/feed/update/urn:li:activity:7421613869879410688/'>Liberate AI</a> partners at <a href='https://www.dzne.de/'>DZNE Bonn</a>.
+Visited our <a href='https://lnkd.in/p/eAzYJ6Pf'>Liberate AI</a> partners at <a href='https://www.dzne.de/'>DZNE Bonn</a>.

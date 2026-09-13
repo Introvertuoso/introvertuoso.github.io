@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Started my PhD at the Helmholtz Center CISPA.
+Started my doctor of philosophy degree in informatics at <a href='https://saarland-informatics-campus.de/en/'>Saarland University</a>.

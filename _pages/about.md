@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: Doctoral researcher @ CISPA | RTG Nx Models | UdS
+subtitle: Doctoral researcher @ CISPA | RTG Nx Models
 
 profile:
   align: right

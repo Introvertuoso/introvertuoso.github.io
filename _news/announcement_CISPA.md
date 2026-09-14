@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Started my role as a doctoral researcher at the <a href='https://cispa.de/en/'>Helmholtz Center CISPA</a>.
+Started my role as a doctoral researcher at CISPA Helmholtz Center for Information Security.

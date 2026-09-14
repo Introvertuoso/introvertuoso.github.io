@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Participated in the <a href='https://lnkd.in/p/eFujjK6P'>RTG Nx Models 2025 Symposium</a> at <a href='https://www.dagstuhl.de/25483'>Schloss Dagstuhl</a>.
+Participated in the <a href='https://lnkd.in/p/eFujjK6P'>RTG Nx Models Symposium</a> at <a href='https://www.dagstuhl.de/25483'>Schloss Dagstuhl</a>.

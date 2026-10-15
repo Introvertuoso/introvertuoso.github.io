@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Gave a talk at <a href='https://www.dsg-info.de/kongress/'>DSG26</a> at <a href='https://fu-berlin.de'>FU Berlin</a>.
+Gave a talk at <a href='https://www.dsg-info.de/kongress/dsg26/'>DSG26</a> at <a href='https://fu-berlin.de'>FU Berlin</a>.

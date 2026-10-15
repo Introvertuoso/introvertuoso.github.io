@@ -28,6 +28,8 @@ jobs:
           pip install beautifulsoup4 pyyaml
 
       - name: Fetch Google Scholar Citations
+        env:
+          SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
         run: |
           python bin/update_citations.py
 
@@ -39,6 +41,7 @@ jobs:
           if [[ -n $(git status --porcelain _bibliography/papers.bib _data/citations.json) ]]; then
             git add _bibliography/papers.bib _data/citations.json
             git commit -m "chore(citations): auto-update Google Scholar citation counts"
+            git pull --rebase origin master
             git push origin master
           else
             echo "No citation changes detected."

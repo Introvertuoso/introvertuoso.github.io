@@ -129,8 +129,8 @@ $(document).ready(function () {
     } else if (type === "award") {
       targetPanel = $entry.find(".award.hidden")[0];
     } else if (type === "abstract") {
-      var btnText = $(btn).text().trim().toLowerCase();
-      if (btnText === "video") {
+      var isVideo = $(btn).hasClass("video") || $(btn).text().trim().toLowerCase() === "video";
+      if (isVideo) {
         var videoPanel = $entry.find(".abstract.hidden").filter(function () {
           return $(this).find("video, iframe").length > 0;
         })[0];

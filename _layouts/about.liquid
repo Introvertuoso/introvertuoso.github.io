@@ -15,17 +15,15 @@ layout: default
 
   <article>
     {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}" style="margin-left: 1.5rem;">
+      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
         {% if page.profile.image %}
           {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
           {% if page.profile.image_circular %}
             {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
           {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
+            {% assign profile_image_class = 'img-fluid z-depth-1 rounded' %}
           {% endif %}
-          {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
+          {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.267}}px, (min-width: 576px) 26.7vw, calc(100vw - 30px){% endcapture %}
           {%
             include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
             cache_bust=true
@@ -43,7 +41,7 @@ layout: default
     {% if page.news and site.announcements.enabled %}
       <div class="news-header-wrapper d-flex justify-content-between align-items-center">
         <h2>
-          <a href="{{ '/news/' | relative_url }}" style="color: inherit">News</a>
+          <a href="{{ '/news/' | relative_url }}">News</a>
         </h2>
         {% assign news_size = site.news | size %}
         {% if news_size > 5 %}
@@ -64,7 +62,7 @@ layout: default
     <!-- Latest posts -->
     {% if site.latest_posts.enabled %}
       <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
+        <a href="{{ '/blog/' | relative_url }}">latest posts</a>
       </h2>
       {% include latest_posts.liquid %}
     {% endif %}
@@ -72,7 +70,7 @@ layout: default
     <!-- Selected papers -->
     {% if page.selected_papers %}
       <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected publications</a>
+        <a href="{{ '/publications/' | relative_url }}">Selected Publications</a>
       </h2>
       {% include selected_papers.liquid %}
     {% endif %}

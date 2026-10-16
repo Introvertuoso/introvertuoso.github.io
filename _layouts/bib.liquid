@@ -46,8 +46,31 @@
     {% assign primary_words = title_words | slice: 0, title_limit %}
     {% assign rest_words = title_words | slice: title_limit, word_count %}
     {% assign rest_words_str = rest_words | join: " " %}
+
+    {% if entry.html %}
+      {% if entry.html contains '://' %}
+        {% assign title_url = entry.html %}
+      {% else %}
+        {% assign title_url = entry.html | prepend: '/assets/html/' | relative_url %}
+      {% endif %}
+    {% elsif entry.doi %}
+      {% if entry.doi contains '://' %}
+        {% assign title_url = entry.doi %}
+      {% else %}
+        {% assign title_url = entry.doi | prepend: 'https://doi.org/' %}
+      {% endif %}
+    {% elsif entry.url %}
+      {% assign title_url = entry.url %}
+    {% endif %}
+
     <div class="title" data-full-title="{{ entry.title | xml_escape }}">
-      <span class="title-primary">{% if word_count > title_limit %}{{ primary_words | join: " " }}{% else %}{{ entry.title }}{% endif %}</span>
+      {% if title_url %}
+        <a href="{{ title_url }}" target="_blank" rel="noopener noreferrer">
+          <span class="title-primary">{% if word_count > title_limit %}{{ primary_words | join: " " }}{% else %}{{ entry.title }}{% endif %}</span>
+        </a>
+      {% else %}
+        <span class="title-primary">{% if word_count > title_limit %}{{ primary_words | join: " " }}{% else %}{{ entry.title }}{% endif %}</span>
+      {% endif %}
       <span
         class="more-title"
         role="button"
@@ -56,7 +79,11 @@
         onclick="typeMoreTitle(this, {{ site.more_title_animation_delay | default: site.more_authors_animation_delay | default: 10 }});"
         {% if word_count <= title_limit %}style="display: none;"{% endif %}
       >...</span>
-      <span class="more-title-rest" style="display: none;" data-full-rest="{% if word_count > title_limit %}{{ rest_words_str | xml_escape }}{% endif %}"></span>
+      {% if title_url %}
+        <a href="{{ title_url }}" target="_blank" rel="noopener noreferrer" class="more-title-rest" style="display: none;" data-full-rest="{% if word_count > title_limit %}{{ rest_words_str | xml_escape }}{% endif %}"></a>
+      {% else %}
+        <span class="more-title-rest" style="display: none;" data-full-rest="{% if word_count > title_limit %}{{ rest_words_str | xml_escape }}{% endif %}"></span>
+      {% endif %}
     </div>
     <!-- Author -->
     <div class="author">
@@ -176,18 +203,11 @@
       {% if entry.bibtex_show %}
         <a class="bibtex btn btn-sm z-depth-0" role="button">Bib</a>
       {% endif %}
-      {% if entry.html %}
-        {% if entry.html contains '://' %}
-          <a href="{{ entry.html }}" class="btn btn-sm z-depth-0" role="button">HTML</a>
-        {% else %}
-          <a href="{{ entry.html | prepend: '/assets/html/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">HTML</a>
-        {% endif %}
-      {% endif %}
       {% if entry.pdf %}
         {% if entry.pdf contains '://' %}
-          <a href="{{ entry.pdf }}" class="btn btn-sm z-depth-0" role="button">PDF</a>
+          <a href="{{ entry.pdf }}" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer">PDF</a>
         {% else %}
-          <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">PDF</a>
+          <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0" role="button" target="_blank">PDF</a>
         {% endif %}
       {% endif %}
       {% if entry.supp %}
@@ -228,82 +248,162 @@
         <a href="{{ entry.website }}" class="btn btn-sm z-depth-0" role="button">Website</a>
       {% endif %}
     </div>
-    {% if site.enable_publication_badges %}
-      {% assign entry_has_altmetric_badge = false %}
-      {% if entry.altmetric and entry.altmetric != 'false' %}
-        {% assign entry_has_altmetric_badge = true %}
-      {% endif %}
 
-      {% assign entry_has_dimensions_badge = false %}
-      {% if entry.dimensions and entry.dimensions != 'false' %}
-        {% assign entry_has_dimensions_badge = true %}
-      {% endif %}
+    <!-- Badges (Metric Buttons) -->
+    {% assign entry_has_scholar_btn = false %}
+    {% if entry.google_scholar_id %}
+      {% assign entry_has_scholar_btn = true %}
+    {% endif %}
 
-      {% assign entry_has_google_scholar_badge = false %}
-      {% if entry.google_scholar_id %}
-        {% assign entry_has_google_scholar_badge = true %}
-      {% endif %}
-      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_google_scholar_badge %}
-        <div class="badges">
-          {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}
+    {% assign entry_has_altmetric_btn = false %}
+    {% if entry.altmetric and entry.altmetric != 'false' %}
+      {% assign entry_has_altmetric_btn = true %}
+    {% endif %}
+
+    {% assign entry_has_dimensions_btn = false %}
+    {% if entry.dimensions and entry.dimensions != 'false' %}
+      {% assign entry_has_dimensions_btn = true %}
+    {% endif %}
+
+    {% if entry_has_scholar_btn or entry_has_altmetric_btn or entry_has_dimensions_btn %}
+      <div class="badges">
+        {% if entry.google_scholar_id %}
+          <a
+            href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.scholar_userid }}&citation_for_view={{ site.scholar_userid }}:{{ entry.google_scholar_id }}"
+            class="scholar btn btn-sm z-depth-0"
+            role="button"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Google Scholar ({{ entry.scholar_citation_count }} citations)"
+            title="Google Scholar Citations: {{ entry.scholar_citation_count }}"
+          >
+            <svg class="scholar-icon" viewBox="32 48 448 448" width="12" height="12" aria-hidden="true">
+              <path fill="#4285F4" d="M256 48L32 192l224 144 192-123.4V368h32V192L256 48z"/>
+              <path fill="#1a73e8" d="M112 288v96c0 61.9 64.5 112 144 112s144-50.1 144-112v-96l-144 92.6L112 288z"/>
+            </svg>
+            <span class="scholar-count">{{ entry.scholar_citation_count }}</span>
+          </a>
+        {% endif %}
+        {% if entry.altmetric and entry.altmetric != 'false' %}
+          {% assign altmetric_url = null %}
+          {% if entry.altmetric != blank and entry.altmetric != 'true' %}
+            {% assign altmetric_url = 'https://www.altmetric.com/details/' | append: entry.altmetric %}
+          {% elsif entry.doi %}
+            {% assign altmetric_url = 'https://www.altmetric.com/details.php?doi=' | append: entry.doi %}
+          {% elsif entry.arxiv %}
+            {% assign altmetric_url = 'https://www.altmetric.com/details.php?arxiv=' | append: entry.arxiv %}
+          {% elsif entry.eprint %}
+            {% assign altmetric_url = 'https://www.altmetric.com/details.php?arxiv=' | append: entry.eprint %}
+          {% endif %}
+          {% if altmetric_url %}
             <a
-              href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.scholar_userid }}&citation_for_view={{ site.scholar_userid }}:{{ entry.google_scholar_id }}"
-              class="google-scholar-badge"
-              aria-label="Google Scholar link"
+              href="{{ altmetric_url }}"
+              class="altmetric btn btn-sm z-depth-0"
               role="button"
               target="_blank"
               rel="noopener noreferrer"
-              title="Google Scholar Citations: {{ entry.scholar_citation_count }}"
+              aria-label="Altmetric"
+              title="Altmetric"
             >
-              <span class="gs-badge-label">
-                <svg class="gs-icon" viewBox="32 48 448 448" width="11" height="11">
-                  <path fill="#4285F4" d="M256 48L32 192l224 144 192-123.4V368h32V192L256 48z"/>
-                  <path fill="#1a73e8" d="M112 288v96c0 61.9 64.5 112 144 112s144-50.1 144-112v-96l-144 92.6L112 288z"/>
-                </svg>
-                <span class="gs-badge-text">Scholar</span>
-              </span>
-              <span class="gs-badge-count-bubble">{{ entry.scholar_citation_count }}</span>
+              <svg class="altmetric-icon" viewBox="46 46 408 408" width="15" height="15" aria-hidden="true">
+                <defs>
+                  <mask id="altmetric-m0-{{ entry.key }}" color-interpolation="linearRGB">
+                    <circle cx="250" cy="250" r="200.5" fill="white"/>
+                    <circle cx="250" cy="250" r="108.5" fill="black"/>
+                    <circle cx="296.67" cy="203.33" r="143.5" fill="black"/>
+                  </mask>
+                  <mask id="altmetric-m1-{{ entry.key }}" color-interpolation="linearRGB">
+                    <circle cx="250" cy="250" r="200.5" fill="white"/>
+                    <circle cx="250" cy="250" r="108.5" fill="black"/>
+                    <circle cx="316.00" cy="250.00" r="143.5" fill="black"/>
+                  </mask>
+                  <mask id="altmetric-m2-{{ entry.key }}" color-interpolation="linearRGB">
+                    <circle cx="250" cy="250" r="200.5" fill="white"/>
+                    <circle cx="250" cy="250" r="108.5" fill="black"/>
+                    <circle cx="296.67" cy="296.67" r="143.5" fill="black"/>
+                  </mask>
+                  <mask id="altmetric-m3-{{ entry.key }}" color-interpolation="linearRGB">
+                    <circle cx="250" cy="250" r="200.5" fill="white"/>
+                    <circle cx="250" cy="250" r="108.5" fill="black"/>
+                    <circle cx="250.00" cy="316.00" r="143.5" fill="black"/>
+                  </mask>
+                  <mask id="altmetric-m4-{{ entry.key }}" color-interpolation="linearRGB">
+                    <circle cx="250" cy="250" r="200.5" fill="white"/>
+                    <circle cx="250" cy="250" r="108.5" fill="black"/>
+                    <circle cx="203.33" cy="296.67" r="143.5" fill="black"/>
+                  </mask>
+                  <mask id="altmetric-m5-{{ entry.key }}" color-interpolation="linearRGB">
+                    <circle cx="250" cy="250" r="200.5" fill="white"/>
+                    <circle cx="250" cy="250" r="108.5" fill="black"/>
+                    <circle cx="184.00" cy="250.00" r="143.5" fill="black"/>
+                  </mask>
+                  <mask id="altmetric-m6-{{ entry.key }}" color-interpolation="linearRGB">
+                    <circle cx="250" cy="250" r="200.5" fill="white"/>
+                    <circle cx="250" cy="250" r="108.5" fill="black"/>
+                    <circle cx="203.33" cy="203.33" r="143.5" fill="black"/>
+                  </mask>
+                  <mask id="altmetric-m7-{{ entry.key }}" color-interpolation="linearRGB">
+                    <circle cx="250" cy="250" r="200.5" fill="white"/>
+                    <circle cx="250" cy="250" r="108.5" fill="black"/>
+                    <circle cx="250.00" cy="184.00" r="143.5" fill="black"/>
+                  </mask>
+                </defs>
+                <circle cx="250.00" cy="184.00" r="143.6" fill="#5C2482" mask="url(#altmetric-m0-{{ entry.key }})"/>
+                <circle cx="296.67" cy="203.33" r="143.6" fill="#A61680" mask="url(#altmetric-m1-{{ entry.key }})"/>
+                <circle cx="316.00" cy="250.00" r="143.6" fill="#E3032E" mask="url(#altmetric-m2-{{ entry.key }})"/>
+                <circle cx="296.67" cy="296.67" r="143.6" fill="#F29100" mask="url(#altmetric-m3-{{ entry.key }})"/>
+                <circle cx="250.00" cy="316.00" r="143.6" fill="#FFDC00" mask="url(#altmetric-m4-{{ entry.key }})"/>
+                <circle cx="203.33" cy="296.67" r="143.6" fill="#A1C517" mask="url(#altmetric-m5-{{ entry.key }})"/>
+                <circle cx="184.00" cy="250.00" r="143.6" fill="#04BAEE" mask="url(#altmetric-m6-{{ entry.key }})"/>
+                <circle cx="203.33" cy="203.33" r="143.6" fill="#005CA8" mask="url(#altmetric-m7-{{ entry.key }})"/>
+              </svg>
             </a>
           {% endif %}
-          {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
-            <span
-              class="altmetric-embed"
-              data-hide-no-mentions="false"
-              data-hide-less-than="0"
-              data-badge-type="2"
-              data-badge-popover="right"
-              {% if entry.altmetric != blank and entry.altmetric != 'true' %}
-                data-altmetric-id="{{ entry.altmetric }}"
-              {% elsif entry.arxiv %}
-                data-arxiv-id="{{ entry.arxiv }}"
-              {% elsif entry.eprint %}
-                data-arxiv-id="{{ entry.eprint }}"
-              {% elsif entry.doi %}
-                data-doi="{{ entry.doi }}"
-              {% elsif entry.pmid %}
-                data-pmid="{{ entry.pmid }}"
-              {% elsif entry.isbn %}
-                data-isbn="{{ entry.isbn }}"
-              {% endif %}
-            ></span>
+        {% endif %}
+        {% if entry.dimensions and entry.dimensions != 'false' %}
+          {% assign dimensions_url = null %}
+          {% if entry.dimensions != blank and entry.dimensions != 'true' %}
+            {% assign dimensions_url = 'https://badge.dimensions.ai/details/id/' | append: entry.dimensions %}
+          {% elsif entry.doi %}
+            {% assign dimensions_url = 'https://badge.dimensions.ai/details/doi/' | append: entry.doi %}
+          {% elsif entry.pmid %}
+            {% assign dimensions_url = 'https://badge.dimensions.ai/details/pmid/' | append: entry.pmid %}
           {% endif %}
-          {% if site.enable_publication_badges.dimensions and entry_has_dimensions_badge %}
-            <span
-              class="__dimensions_badge_embed__"
-              {% if entry.dimensions != blank and entry.dimensions != 'true' %}
-                data-id="{{ entry.dimensions }}"
-              {% elsif entry.doi %}
-                data-doi="{{ entry.doi }}"
-              {% else %}
-                data-pmid="{{ entry.pmid }}"
-              {% endif %}
-              data-hide-zero-citations="false"
-              data-style="small_rectangle"
-              data-legend="hover-right"
-            ></span>
+          {% if dimensions_url %}
+            <a
+              href="{{ dimensions_url }}"
+              class="dimensions btn btn-sm z-depth-0"
+              role="button"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Dimensions"
+              title="Dimensions"
+            >
+              <svg class="dimensions-icon" viewBox="70 70 480 480" width="15" height="15" aria-hidden="true">
+                <defs>
+                  <filter id="dimensions-blur-{{ entry.key }}" color-interpolation-filters="sRGB">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="40"/>
+                  </filter>
+                  <mask id="dimensions-mask-{{ entry.key }}">
+                    <path fill="white" d="M546.5,287.3l-111.8-194c-1.8-3-4.1-5.6-6.7-7.7c-2.2-2.7-5.4-4.3-8.9-4.5c-2.3-0.7-4.7-1-7-1 L188.2,80c-9.3,0-18,5-22.6,13.1l-112,193.8c-4.7,8.1-4.7,18,0,26.1l111.9,193.9c4.7,8.1,13.3,13,22.6,13.1l223.9,0.1 c9.3,0,17.9-4.8,22.6-12.8l112-193.7l0,0C551.1,305.1,551.2,295.4,546.5,287.3z M516.6,287.4l-41.5,0.1l-26.7-118.2L516.6,287.4z M337.2,106.2l-114.5,36.3l-20.3-36.4L337.2,106.2z M180.7,119l20.1,36.2L112,237.7L180.7,119z M181,481.8l-69.3-120l89.2,84 L181,481.8z M203.3,493.8l19.6-35.6l114.6,35.7L203.3,493.8z M408.1,489.3l-152.7-47.5l-32.3-10.6l-25.3-23.2L82.6,299.6 l114.6-106.9l25-23.1v-0.2l0.7-0.2l32.4-10.7l153.6-48.7l35.5,156.6l7.5,33.4l-7.6,33.5L408.1,489.3z M447.1,432.9l27.9-120.3 l41.7-0.1L447.1,432.9z"/>
+                  </mask>
+                  <g id="dimensions-grad-{{ entry.key }}" filter="url(#dimensions-blur-{{ entry.key }})">
+                    <path fill="#006EB6" d="M0,0l300,300v-424.4C182.9-124.4,76.8-76.9,0,0z"/>
+                    <path fill="#28348A" d="M300-124.4V300L600,0C523.2-76.9,417.1-124.4,300-124.4z"/>
+                    <path fill="#E20613" d="M600,600c76.8-76.8,124.3-182.9,124.3-300H300L600,600z"/>
+                    <path fill="#DA0078" d="M300,300h424.4c0-117.1-47.5-223.2-124.3-300L300,300z"/>
+                    <path fill="#5BC4F1" d="M-124.4,300H300L0,0C-76.9,76.8-124.4,182.9-124.4,300z"/>
+                    <path fill="#A1C517" d="M0,600l300-300h-424.4C-124.4,417.1-76.9,523.2,0,600z"/>
+                    <path fill="#F08800" d="M300,724.4c117.1,0,223.2-47.5,300-124.3L300,300V724.4z"/>
+                    <path fill="#FFCB00" d="M300,724.4V300L0,600C76.8,676.9,182.9,724.4,300,724.4z"/>
+                  </g>
+                </defs>
+                <use mask="url(#dimensions-mask-{{ entry.key }})" href="#dimensions-grad-{{ entry.key }}" xlink:href="#dimensions-grad-{{ entry.key }}"/>
+              </svg>
+            </a>
           {% endif %}
-        </div>
-      {% endif %}
+        {% endif %}
+      </div>
     {% endif %}
 
     {% if entry.award %}

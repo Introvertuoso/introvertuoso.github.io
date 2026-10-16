@@ -6,7 +6,7 @@ subtitle: Doctoral researcher @ CISPA | RTG Nx Models
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: al-rahwanji-jawad-cropped.jpg
   image_circular: false # crops the image to make it circular
   more_info: 
 

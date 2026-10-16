@@ -633,7 +633,11 @@ function typeMoreTitle(el, speed) {
       lessBtn.setAttribute("tabindex", "0");
       lessBtn.setAttribute("title", "Click to collapse");
       lessBtn.textContent = " (show less)";
-      lessBtn.onclick = function () {
+      lessBtn.onclick = function (e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         hideMoreTitle(this);
       };
       container.appendChild(lessBtn);
@@ -784,5 +788,6 @@ $(document).ready(function () {
     }
   });
 });
+
 
 

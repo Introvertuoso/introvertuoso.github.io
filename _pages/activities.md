@@ -5,7 +5,7 @@ permalink: /activities/
 description: Academic service, teaching assistantships, invited research talks, and scientific peer review.
 nav: true
 nav_order: 3
-display_categories: [Teaching, Invited Talks, Journal Reviewing]
+display_categories: [Invited Talks, Journal Reviewing, Teaching]
 horizontal: false
 header_card: orcid
 ---

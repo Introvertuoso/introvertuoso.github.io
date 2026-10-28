@@ -5,16 +5,10 @@ on:
     branches:
       - master
       - main
-    paths-ignore:
-      - "README.md"
-      - ".github/workflows/update-citations.yml"
   pull_request:
     branches:
       - master
       - main
-    paths-ignore:
-      - "README.md"
-      - ".github/workflows/update-citations.yml"
   workflow_dispatch:
 
 permissions:

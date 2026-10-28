@@ -7,7 +7,6 @@ nav: true
 nav_order: 3
 display_categories: [Invited Talks, Journal Reviewing, Teaching]
 horizontal: false
-header_card: orcid
 ---
 
 <!-- pages/projects.md -->

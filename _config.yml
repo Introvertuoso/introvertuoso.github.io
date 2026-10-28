@@ -235,7 +235,6 @@ exclude:
   - package-lock.json
   - _pages/about_einstein.md
   - purgecss.config.js
-  - README.md
   - readme_preview/
   - vendor
 keep_files:
@@ -331,13 +330,12 @@ scholar:
 enable_publication_badges:
   altmetric: false # Altmetric badge (https://www.altmetric.com/products/altmetric-badges/)
   dimensions: false # Dimensions badge (https://badge.dimensions.ai/)
-  google_scholar: true # Google Scholar badge (https://scholar.google.com/intl/en/scholar/citations.html)
+  google_scholar: false # Google Scholar badge (https://scholar.google.com/intl/en/scholar/citations.html)
 
 # Filter out certain bibtex entry keywords used internally from the bib output
 filtered_bibtex_keywords:
   [
     abbr,
-    scholar_citation_count,
     abstract,
     additional_info,
     altmetric,

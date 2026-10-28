@@ -2422,17 +2422,19 @@ html[data-theme="dark"] {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 0.35rem;
           height: 27px;
           min-height: 27px;
+          min-width: 32px;
+          padding: 0 0.55rem;
           box-sizing: border-box;
 
           .scholar-icon {
             display: inline-block;
-            width: 13px;
-            height: 13px;
+            width: 14px;
+            height: 14px;
             flex-shrink: 0;
-            vertical-align: -1px;
+            margin: 0;
+            vertical-align: middle;
             transition: transform 0.15s ease;
 
             path:first-child {
@@ -2446,22 +2448,12 @@ html[data-theme="dark"] {
             }
           }
 
-          .scholar-count {
-            font: inherit;
-            color: inherit;
-            letter-spacing: inherit;
-          }
-
           &:hover {
             color: var(--global-theme-color);
             border-color: var(--global-theme-color);
 
-            .scholar-count {
-              color: var(--global-theme-color);
-            }
-
             .scholar-icon {
-              transform: scale(1.08);
+              transform: scale(1.1);
             }
           }
 
@@ -2531,18 +2523,14 @@ html[data-theme="dark"] {
           }
 
           a.scholar.btn {
-            gap: 0.35rem;
+            min-width: 33px;
+            padding: 0 0.55rem;
             height: 30px;
             min-height: 30px;
-            padding: 0 0.55rem;
 
             .scholar-icon {
-              width: 14px;
-              height: 14px;
-            }
-
-            .scholar-count {
-              font-size: 0.82rem;
+              width: 15px;
+              height: 15px;
             }
           }
 
@@ -3705,97 +3693,6 @@ ninja-keys::part(ninja-input-wrapper) {
 
     i {
       color: var(--global-theme-color);
-    }
-  }
-}
-
-// Header Side Metric Card (Publications & Activities)
-header.post-header.with-header-card {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-
-  .post-header-info {
-    flex: 1 1 auto;
-
-    .post-title {
-      margin-bottom: 0.35rem;
-    }
-
-    .post-description {
-      margin-bottom: 0;
-    }
-  }
-
-  .header-side-card {
-    flex-shrink: 0;
-
-    .metric-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: var(--global-card-bg-color);
-      border: 1px solid var(--global-divider-color);
-      border-radius: 8px;
-      padding: 0.65rem 1.15rem;
-      text-decoration: none !important;
-      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-
-      &:hover {
-        border-color: var(--global-theme-color);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        text-decoration: none !important;
-
-        .metric-value {
-          color: var(--global-theme-color);
-        }
-      }
-
-      .metric-icon {
-        font-size: 1.45rem;
-        color: var(--global-theme-color);
-        line-height: 1;
-        display: flex;
-        align-items: center;
-      }
-
-      .metric-text {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.25;
-
-        .metric-value {
-          font-size: 1.05rem;
-          font-weight: 700;
-          color: var(--global-text-color);
-          transition: color 0.15s ease;
-        }
-
-        .metric-label {
-          font-size: 0.72rem;
-          color: var(--global-text-color-light);
-          text-transform: uppercase;
-          letter-spacing: 0.04em;
-        }
-      }
-    }
-  }
-
-  @media (max-width: 576px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-
-    .header-side-card {
-      width: 100%;
-
-      .metric-item {
-        width: 100%;
-        justify-content: center;
-      }
     }
   }
 }

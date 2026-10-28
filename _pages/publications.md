@@ -5,7 +5,6 @@ title: Publications
 description: Peer-reviewed journal articles, conference & workshop papers, and preprints.
 nav: true
 nav_order: 1
-header_card: scholar
 ---
 
 <!-- _pages/publications.md -->

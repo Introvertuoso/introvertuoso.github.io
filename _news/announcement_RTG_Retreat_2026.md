@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Participated in the RTG Nx Models Symposium at Der Linslerhof.
+Participated in the <a href='https://lnkd.in/p/ef8QdGgD'>RTG Nx Models Symposium</a> at Der Linslerhof.
